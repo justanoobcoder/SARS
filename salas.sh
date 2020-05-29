@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#[ $EUID != 0 ] && echo -e "Permission denied!
-#Run this script as root" && exit 1
+[ $EUID != 0 ] && echo -e "Permission denied!
+Run this script as root" && exit 1
 
 ### OPTIONS AND VARIABLES ###
 
