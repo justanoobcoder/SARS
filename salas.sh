@@ -11,7 +11,7 @@ while getopts ":a:h" o; do case "${o}" in
 	*) printf "Invalid option: -%s\\n" "$OPTARG" && exit ;;
 esac done
 
-dotfilesrepo="https://gitlab.com/justanoobcoder/SALAS.git"
+dotfilesrepo="https://gitlab.com/justanoobcoder/my-config.git"
 prepobranch="master"
 progsfile="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/progs.csv"
 [ -z "$aurhelper" ] && aurhelper="yay"
