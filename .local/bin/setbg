@@ -1,8 +1,0 @@
-#!/bin/sh
-
-[ -f $1 ] && cp $1 ~/.cache/wallpaper.jpg && twmnc -i "$HOME/.cache/wallpaper.jpg" -c "Wallpaper changed!"
-[ -d $1 ] && cp "$(find $1 -name "*.jpg" -o -name "*png" -type f | shuf -n 1)" ~/.cache/wallpaper.jpg 
-
-feh --no-fehbg --bg-scale ~/.cache/wallpaper.jpg &
-
-exit 0

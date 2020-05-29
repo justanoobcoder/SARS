@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [ $EUID != 0 ] && echo -e "Permission denied!
-Run this script as root" && exit 1
+Run this script as root" && exit
 
 ### OPTIONS AND VARIABLES ###
 
@@ -24,10 +24,8 @@ installpkg(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
 
 welcomemsg() { 
-	dialog --title "Welcome!" --msgbox "Welcome to SALAS - Syaoran's Arch Linux Auto Script!\\n\\nThis script will automatically install a fully-featured Linux desktop, which I use as my main machine." 10 60
-    
+	dialog --title "Welcome!" --msgbox "Welcome to SALAS - Syaoran's Arch Linux Auto Setup!\\n\\nThis script will automatically install a fully-featured Linux desktop, which I use as my main machine." 10 60
     dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script sets up dwm-syaoran (my suckless's dwm build). So if you use other WM or DE then choose <Exit> to exit this script." 8 80 || { clear; exit; }
-
 }
 
 getuserandpass() { 
