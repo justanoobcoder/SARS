@@ -1,0 +1,21 @@
+#!/bin/sh
+
+script=$1
+permission=$2
+
+[ -f $script ] && nvim $script && exit 0
+
+touch $script
+chmod +x $script
+
+echo "#!/bin/bash
+" >> $script
+{ [ "$permission" = "r" ] && echo '[ $EUID != 0 ] && echo -e "Permission denied!\nRun this script as root" && exit 1' >> $script; } || echo '[ $EUID = 0 ] && echo "Do not run this script as root." && exit 1' >> $script
+echo "
+
+
+exit 0" >> $script
+
+nvim $script
+
+exit 0
