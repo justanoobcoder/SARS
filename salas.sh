@@ -13,7 +13,7 @@ esac done
 
 dotfilesrepo="https://gitlab.com/justanoobcoder/SALAS.git"
 prepobranch="master"
-rogsfile="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/progs.csv"
+progsfile="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/progs.csv"
 [ -z "$aurhelper" ] && aurhelper="yay"
 grepseq="\"^[PGA]*,\""
 
@@ -165,7 +165,7 @@ getuserandpass || error "User exited."
 preinstallmsg || error "User exited."
 
 ### The rest of the script requires no user input.
-[ "$user_exist" != "true" ] && adduserandpass || error "Error adding username and/or password."
+[ "$user_exist" != "true" ] && { adduserandpass || error "Error adding username and/or password."; }
 
 # Refresh Arch keyrings.
 refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
