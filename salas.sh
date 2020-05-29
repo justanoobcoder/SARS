@@ -12,7 +12,7 @@ while getopts ":a:h" o; do case "${o}" in
 esac done
 
 dotfilesrepo="https://gitlab.com/justanoobcoder/my-config.git"
-prepobranch="master"
+repobranch="master"
 progsfile="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/progs.csv"
 [ -z "$aurhelper" ] && aurhelper="yay"
 grepseq="\"^[PGA]*,\""
@@ -34,7 +34,7 @@ getuserandpass() {
 	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
 		name=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _." 10 60 3>&1 1>&2 2>&3 3>&1)
 	done
-	id -u "$name" >/dev/null 2>&1 && user_exist="true" || {
+	id -u "$name" >/dev/null 2>&1 && user_exist="true" && repodir="/home/$name/user/Workspace/repo" && mkdir -p "$repodir" && chown -R "$name":wheel $(dirname "$repodir") || {
 	pass1=$(dialog --no-cancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1);
 	pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1);
 	while ! [ "$pass1" = "$pass2" ]; do
@@ -53,7 +53,7 @@ adduserandpass() { \
 	dialog --infobox "Adding user \"$name\"..." 4 50
 	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
 	usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
-	repodir="/home/$name/.local/src"; mkdir -p "$repodir"; chown -R "$name":wheel $(dirname "$repodir")
+	repodir="/home/$name/user/Workspace/repo"; mkdir -p "$repodir"; chown -R "$name":wheel $(dirname "$repodir")
 	echo "$name:$pass1" | chpasswd
 	unset pass1 pass2 ;
 }
@@ -73,12 +73,28 @@ maininstall() { # Installs all needed programs from main repo.
 	installpkg "$1"
 }
 
+#gitmakeinstall() {
+#	progname="$(basename "$1" .git)"
+#	dir="$repodir/$progname"
+#	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $(basename "$1") $2" 5 70
+#	sudo -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; sudo -u "$name" git pull --force origin master;}
+#	cd "$dir" || exit
+#	make >/dev/null 2>&1
+#	make install >/dev/null 2>&1
+#	cd /tmp || return 
+#}
+
 gitmakeinstall() {
-	progname="$(basename "$1" .git)"
-	dir="$repodir/$progname"
+	progname="$(basename "$1" -master.zip)"
+	zipname="$(basename "$1" .zip)"
 	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $(basename "$1") $2" 5 70
-	sudo -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; sudo -u "$name" git pull --force origin master;}
-	cd "$dir" || exit
+    installpkg wget
+    installpkg unzip
+	sudo -u "$name" wget "$1" -O "$repodir/${zipname}.zip" >/dev/null 2>&1
+    cd "$repodir"
+    sudo -u "$name" unzip "${zipname}.zip" >/dev/null 2>&1
+    rm *.zip ; sudo -u "$name" mv "$zipname" "$progname"
+    cd "$progname" || exit
 	make >/dev/null 2>&1
 	make install >/dev/null 2>&1
 	cd /tmp || return 
