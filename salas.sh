@@ -64,8 +64,8 @@ refreshkeys() { \
 }
 
 newperms() { # Set special sudoers settings for install (or after).
-	sed -i "/#SALAS/d" /etc/sudoers
-	echo "$* #SALAS" >> /etc/sudoers
+	#sed -i "/#SALAS/d" /etc/sudoers
+	echo "$*" >> /etc/sudoers
 }
 
 maininstall() { # Installs all needed programs from main repo.
@@ -73,21 +73,21 @@ maininstall() { # Installs all needed programs from main repo.
 	installpkg "$1"
 }
 
-#gitmakeinstall() {
-#	progname="$(basename "$1" .git)"
-#	dir="$repodir/$progname"
-#	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $(basename "$1") $2" 5 70
-#	sudo -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; sudo -u "$name" git pull --force origin master;}
-#	cd "$dir" || exit
-#	make >/dev/null 2>&1
-#	make install >/dev/null 2>&1
-#	cd /tmp || return 
-#}
-
 gitmakeinstall() {
+	progname="$(basename "$1" .git)"
+	dir="$repodir/$progname"
+	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $progname $2" 5 70
+	sudo -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; sudo -u "$name" git pull --force origin master;}
+	cd "$dir" || exit
+	make >/dev/null 2>&1
+	make install >/dev/null 2>&1
+	cd /tmp || return 
+}
+
+gitzipmakeinstall() {
 	progname="$(basename "$1" -master.zip)"
 	zipname="$(basename "$1" .zip)"
-	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $(basename "$1") $2" 5 70
+	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $progname $2" 5 70
     installpkg wget
     installpkg unzip
 	sudo -u "$name" wget "$1" -O "$repodir/${zipname}.zip" >/dev/null 2>&1
@@ -134,6 +134,7 @@ installationloop() {
 		case "$tag" in
 			"A") aurinstall "$program" "$comment" ;;
 			"G") gitmakeinstall "$program" "$comment" ;;
+			"Z") gitzipmakeinstall "$program" "$comment" ;;
 			"P") pipinstall "$program" "$comment" ;;
 			*) maininstall "$program" "$comment" ;;
 		esac
@@ -193,7 +194,7 @@ installpkg git
 
 # Allow user to run sudo without password. Since AUR programs must be installed
 # in a fakeroot environment, this is required for all builds with AUR.
-newperms "%wheel ALL=(ALL) NOPASSWD: ALL"
+#newperms "%wheel ALL=(ALL) NOPASSWD: ALL"
 
 # Make pacman and yay colorful and adds eye candy on the progress bar because why not.
 grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
@@ -230,8 +231,9 @@ sudo -u "$name" mkdir -p "/home/$name/.cache/zsh/"
 # Start/restart PulseAudio.
 killall pulseaudio; sudo -u "$name" pulseaudio --start
 
-newperms "%wheel ALL=(ALL) ALL #LARBS
-%wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/wifi-menu,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/packer -Syu,/usr/bin/packer -Syyu,/usr/bin/systemctl restart NetworkManager,/usr/bin/rc-service NetworkManager restart,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/yay,/usr/bin/pacman -Syyuw --noconfirm"
+newperms "
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
+Defaults editor=/usr/bin/nvim"
 
 # Last message! Install complete!
 finalize
