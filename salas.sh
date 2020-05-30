@@ -161,6 +161,26 @@ createdirs() {
     sudo -u "$name" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/Screenshots}
 }
 
+xorgconfig() {
+    dialog --title "Attention" --yes-label "Yes" --no-label "No" --yesno "Is your machine an Intel laptop? Choose <No> if you are installing on virtual machine." 5 50 || return
+
+    echo 'Section "Device"
+  	Identifier 	"Intel Graphics"
+  	Driver 		"intel"
+
+	Option 		"DRI" 			"2"
+	Option      "AccelMethod"  	"uxa"
+  	Option 		"TearFree" 		"true"
+EndSection' > /etc/X11/xorg.conf.d/20-intel.conf
+    
+    echo 'Section "InputClass"
+    Identifier "devname"
+    Driver "libinput"
+
+	Option "Tapping" "on"
+EndSection' > /etc/X11/xorg.conf.d/30-touchpad.conf
+}
+
 finalize(){ 
 	dialog --infobox "Preparing welcome message..." 4 50
 
@@ -238,6 +258,8 @@ killall pulseaudio; sudo -u "$name" pulseaudio --start
 newperms "
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
 Defaults editor=/usr/bin/nvim"
+
+xorgconfig
 
 # Create user's directories
 createdirs
