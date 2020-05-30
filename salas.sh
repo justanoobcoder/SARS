@@ -87,7 +87,7 @@ gitmakeinstall() {
 gitzipmakeinstall() {
 	progname="$(basename "$1" -master.zip)"
 	zipname="$(basename "$1" .zip)"
-	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $progname $2" 5 70
+	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via a zip file from \`git\` and \`make\`. $progname $2" 5 70
     installpkg wget
     installpkg unzip
 	sudo -u "$name" wget "$1" -O "$repodir/${zipname}.zip" >/dev/null 2>&1
