@@ -15,7 +15,7 @@ dotfilesrepo="https://gitlab.com/justanoobcoder/my-config.git"
 repobranch="master"
 progsfile="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/progs.csv"
 [ -z "$aurhelper" ] && aurhelper="yay"
-grepseq="\"^[PGA]*,\""
+grepseq="\"^[PGAZ]*,\""
 
 ### FUNCTIONS ###
 
