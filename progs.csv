@@ -5,6 +5,7 @@
 ,ttf-linux-libertine,"provides the sans and serif fonts."
 ,arandr,"is a UI for screen adjustment."
 ,bc,"is used for a dropdown calculator."
+,dmenu,"is a fast and lightweight dynamic menu for X."
 ,picom,"is for transparency and removing screen-tearing."
 ,xorg-xprop,"is a tool for detecting window properties."
 ,dosfstools,"allows your computer to access dos-like filesystems."
