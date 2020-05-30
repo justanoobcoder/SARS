@@ -13,9 +13,8 @@ esac done
 
 dotfilesrepo="https://gitlab.com/justanoobcoder/my-config.git"
 repobranch="master"
-progsfile="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/progs.csv"
+packagelist="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/README.md"
 [ -z "$aurhelper" ] && aurhelper="yay"
-grepseq="\"^[PGAZ]*,\""
 
 ### FUNCTIONS ###
 
@@ -125,20 +124,20 @@ pipinstall() {
 }
 
 installationloop() { 
-	([ -f "$progsfile" ] && cp "$progsfile" /tmp/progs.csv) || curl -Ls "$progsfile" | sed '/^#/d' | eval grep "$grepseq" > /tmp/progs.csv
-	total=$(wc -l < /tmp/progs.csv)
+    curl -Ls "$packagelist" |  eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/package.list
+    total=$(wc -l < /tmp/package.list)
 	aurinstalled=$(pacman -Qqm)
 	while IFS=, read -r tag program comment; do
 		n=$((n+1))
-		echo "$comment" | grep "^\".*\"$" >/dev/null 2>&1 && comment="$(echo "$comment" | sed "s/\(^\"\|\"$\)//g")"
+#		echo "$comment" | grep "^\".*\"$" >/dev/null 2>&1 && comment="$(echo "$comment" | sed "s/\(^\"\|\"$\)//g")"
 		case "$tag" in
 			"A") aurinstall "$program" "$comment" ;;
 			"G") gitmakeinstall "$program" "$comment" ;;
 			"Z") gitzipmakeinstall "$program" "$comment" ;;
 			"P") pipinstall "$program" "$comment" ;;
-			*) maininstall "$program" "$comment" ;;
+			"M") maininstall "$program" "$comment" ;;
 		esac
-	done < /tmp/progs.csv
+	done < /tmp/package.list
 }
 
 putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwriting conflicts
@@ -230,7 +229,7 @@ sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
 
 manualinstall $aurhelper || error "Failed to install AUR helper."
 
-# The command that does all the installing. Reads the progs.csv file and
+# The command that does all the installing. Reads the package.list file and
 # installs each needed program the way required. Be sure to run this only after
 # the user has been created and has priviledges to run sudo without a password
 # and all build dependencies are installed.
