@@ -33,7 +33,7 @@ getuserandpass() {
 	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
 		name=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _." 10 60 3>&1 1>&2 2>&3 3>&1)
 	done
-	id -u "$name" >/dev/null 2>&1 && user_exist="true" && repodir="/home/$name/user/Workspace/repo" && mkdir -p "$repodir" && chown -R "$name":"$name" $(dirname "$repodir") || {
+	id -u "$name" >/dev/null 2>&1 && user_exist="true" && repodir="/home/$name/user/Workspace/repo" && mkdir -p "$repodir" && chown -R "$name":wheel $(dirname "$repodir") || {
 	pass1=$(dialog --no-cancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1);
 	pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1);
 	while ! [ "$pass1" = "$pass2" ]; do
@@ -51,8 +51,8 @@ adduserandpass() { \
 	# Adds user `$name` with password $pass1.
 	dialog --infobox "Adding user \"$name\"..." 4 50
 	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
-	usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":"$name" /home/"$name"
-	repodir="/home/$name/user/Workspace/repo"; mkdir -p "$repodir"; chown -R "$name":"$name" $(dirname "$repodir")
+	usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
+	repodir="/home/$name/user/Workspace/repo"; mkdir -p "$repodir"; chown -R "$name":wheel $(dirname "$repodir")
 	echo "$name:$pass1" | chpasswd
 	unset pass1 pass2 ;
 }
@@ -145,7 +145,7 @@ putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwrit
 	[ -z "$3" ] && branch="master" || branch="$repobranch"
 	dir=$(mktemp -d)
 	[ ! -d "$2" ] && mkdir -p "$2"
-	chown -R "$name":"$name" "$dir" "$2"
+	chown -R "$name":wheel "$dir" "$2"
 	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 "$1" "$dir" >/dev/null 2>&1
 	sudo -u "$name" cp -rfT "$dir" "$2"
 }
