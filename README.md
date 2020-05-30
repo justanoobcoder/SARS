@@ -42,6 +42,7 @@ Syaoran's Arch Linux Auto Script (SALAS) is a script that autoinstalls and sets 
 | M | man-db | lets you read man pages of programs. |
 | M | ncmpcpp | is a ncurses interface for music with multiple formats and a powerful tag editor. |
 | M | noto-fonts-emoji | is an emoji font. |
+| M | pulseaudio | is a general purpose sound server intended to run as a middleware between your applications and your hardware devices, either using ALSA or OSS. |
 | M | pulseaudio-alsa | is the audio system. |
 | M | alsa-utils | contains (among other utilities) the alsamixer and amixer utilities |
 | M | unrar | extracts rar's. |
