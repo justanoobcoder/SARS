@@ -69,7 +69,6 @@ Syaoran's Arch Linux Auto Script (SALAS) is a script that autoinstalls and sets 
 | M | adobe-source-han-sans-tw-fonts | is Traditional Chinese OpenType/CFF Sans font. | 
 | M | adobe-source-han-serif-cn-fonts | is Simplified Chinese OpenType/CFF Serif font. | 
 | M | adobe-source-han-serif-tw-fonts | is Traditional Chinese OpenType/CFF Serif font. |
-| A | ibus-bamboo | is a Vietnamese IME for IBus. |
 | Z | https://gitlab.com/justanoobcoder/dwm-syaoran/-/archive/master/dwm-syaoran-master.zip | is a patched dwm (dynamic window manager) build. |
 | Z | https://gitlab.com/justanoobcoder/st-syaoran/-/archive/master/st-syaoran-master.zip | is a patched st (suckless/simple terminal) build. |
 | Z | https://gitlab.com/justanoobcoder/dwmblocks-syaoran/-/archive/master/dwmblocks-syaoran-master.zip | is dwm clickable status bar. |
