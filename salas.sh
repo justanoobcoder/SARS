@@ -47,14 +47,14 @@ preinstallmsg() {
 	dialog --title "Let's get this party started!" --yes-label "Let's go!" --no-label "No, nevermind!" --yesno "The rest of the installation will now be totally automated, so you can sit back and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press <Let's go!> and the system will begin installation!" 13 60 || { clear; exit; }
 }
 
-adduserandpass() { \
+adduserandpass() { 
 	# Adds user `$name` with password $pass1.
 	dialog --infobox "Adding user \"$name\"..." 4 50
 	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
 	usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
 	repodir="/home/$name/user/Workspace/repo"; mkdir -p "$repodir"; chown -R "$name":wheel $(dirname "$repodir")
 	echo "$name:$pass1" | chpasswd
-	unset pass1 pass2 ;
+	unset pass1 pass2
 }
 
 refreshkeys() { \
@@ -161,26 +161,6 @@ createdirs() {
     sudo -u "$name" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/Screenshots}
 }
 
-xorgconfig() {
-    dialog --title "Attention" --yes-label "Yes" --no-label "No" --yesno "Is your machine an Intel laptop?" 5 40 || return
-
-    echo 'Section "Device"
-  	Identifier 	"Intel Graphics"
-  	Driver 		"intel"
-
-	Option 		"DRI" 			"2"
-	Option      "AccelMethod"  	"uxa"
-  	Option 		"TearFree" 		"true"
-EndSection' > /etc/X11/xorg.conf.d/20-intel.conf
-    
-    echo 'Section "InputClass"
-    Identifier "devname"
-    Driver "libinput"
-
-	Option "Tapping" "on"
-EndSection' > /etc/X11/xorg.conf.d/30-touchpad.conf
-}
-
 finalize(){ 
 	dialog --infobox "Preparing welcome message..." 4 50
 
@@ -236,7 +216,7 @@ manualinstall $aurhelper || error "Failed to install AUR helper."
 installationloop
 
 dialog --title "SALAS Installation" --infobox "Finally, installing \`libxft-bgra\` to enable color emoji in suckless software without crashes." 5 70
-yes | sudo -u "$name" $aurhelper -S libxft-bgra >/dev/null 2>&1
+pacman -Q libxft-bgra >/dev/null 2>&1 || yes | sudo -u "$name" $aurhelper -S libxft-bgra >/dev/null 2>&1
 
 # Install the dotfiles in the user's home directory
 putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
@@ -258,8 +238,6 @@ killall pulseaudio; sudo -u "$name" pulseaudio --start
 newperms "
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
 Defaults editor=/usr/bin/nvim"
-
-xorgconfig
 
 # Create user's directories
 createdirs
