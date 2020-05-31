@@ -25,7 +25,6 @@ Syaoran's Arch Linux Auto Script (SALAS) is a script that autoinstalls and sets 
 | M | xorg-xinit | starts the graphical server. |
 | M | ttf-linux-libertine | provides the sans and serif fonts. |
 | M | arandr | is a UI for screen adjustment. |
-| M | bc | is used for a dropdown calculator. |
 | M | dmenu | is a fast and lightweight dynamic menu for X. |
 | M | picom | is for transparency and removing screen-tearing. |
 | M | xorg-xprop | is a tool for detecting window properties. |
