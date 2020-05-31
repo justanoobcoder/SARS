@@ -3,6 +3,10 @@
 [ $EUID != 0 ] && echo -e "Permission denied!
 Run this script as root" && exit
 
+### INSTALL DIALOG ###
+
+pacman -Q dialg >/dev/null 2>&1 || pacman -S dialog --noconfirm
+
 ### OPTIONS AND VARIABLES ###
 
 while getopts ":a:h" o; do case "${o}" in
