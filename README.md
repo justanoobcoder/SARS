@@ -20,7 +20,7 @@ If the first command fails, then try one of these:
 
 ## Packages
 
-Packages with a "M" are from Arch's main repository, packages with an "A" are from AUR. Packages with a "G" are from git repository (which use Makefile to install), it will clone the repository then use `make` to install. Packages with a "Z" are from git repository (which use Makefile to install), it will download the zip file, unzip it and use `make` to install. If you want to install from git repository, "Z" is recommended because some git repos are quite heavy, download a zip file is way faster and sometimes git clone is so freaking slow.
+Packages with a "M" are from Arch's main repository. Packages with an "A" are from AUR. Packages with a "G" are from git repository (which use Makefile to install), it will clone the repository then use `make` to install. Packages with a "Z" are from git repository (which use Makefile to install), it will download the zip file, unzip it and use `make` to install. If you want to install from git repository, "Z" is recommended because some git repos are quite heavy, download a zip file is way faster and sometimes git clone is so freaking slow. Packages with a "P" are from python pip.
 
 | Source | Package name | Comment |
 | :--- | :--- | :--- |
