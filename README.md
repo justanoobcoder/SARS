@@ -1,5 +1,9 @@
 # Syaoran's Arch Linux Auto Setup (SALAS)
 
+## What is SALAS?
+
+Syaoran's Arch Linux Auto Script (SALAS) is a script that autoinstalls and sets up config files. SALAS is for Arch or Arch-based distros only. SALAS will install [dwm-syaoran](https://gitlab.com/justanoobcoder/dwm-syaoran) as default window manager. SALAS is not for anybody, it's mostly only for me. Unless you want to use all my config files, don't use this script, it will overwrite all your config files.
+
 ## Installation:
 
 Log in as root user. Run the following:
@@ -14,10 +18,9 @@ If the first command fails, then try one of these:
     curl -L cutt.ly/salas-sh -o salas.sh
     curl https://gitlab.com/justanoobcoder/SALAS/-/raw/master/salas.sh
 
-## What is SALAS?
-Syaoran's Arch Linux Auto Script (SALAS) is a script that autoinstalls and sets up config files. SALAS is for Arch or Arch-based distros only. SALAS will install [dwm-syaoran](https://gitlab.com/justanoobcoder/dwm-syaoran) as default window manager. SALAS is not for anybody, it's mostly only for me. Unless you want to use all my config files, don't use this script, it will overwrite all your config files.
-
 ## Packages
+
+Packages with a "M" are from Arch's main repository, packages with an "A" are from AUR. Packages with a "G" are from git repository (which use Makefile to install), it will clone the repository then use `make` to install. Packages with a "Z" are from git repository (which use Makefile to install), it will download the zip file, unzip it and use `make` to install. If you want to install from git repository, "Z" is recommended because some git repos are quite heavy, download a zip file is way faster and sometimes git clone is so freaking slow.
 
 | Source | Package name | Comment |
 | :--- | :--- | :--- |
