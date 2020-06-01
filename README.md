@@ -58,7 +58,6 @@ Syaoran's Arch Linux Auto Script (SALAS) is a script that autoinstalls and sets 
 | M | ibus | is an input method framework, a system for entering non-Latin characters. |
 | M | lxappearance | is feature-rich GTK+ theme switcher of the LXDE Desktop. |
 | M | breeze-gtk | is widget theme for GTK 2 and 3. |
-| M | firefox | is a popular web browser. |
 | M | qutebrowser | is a minimal web browser. |
 | M | shotcut | is a simple video editor. |
 | M | ttf-liberation | is a font. |
@@ -70,6 +69,9 @@ Syaoran's Arch Linux Auto Script (SALAS) is a script that autoinstalls and sets 
 | M | adobe-source-han-sans-tw-fonts | is Traditional Chinese OpenType/CFF Sans font. | 
 | M | adobe-source-han-serif-cn-fonts | is Simplified Chinese OpenType/CFF Serif font. | 
 | M | adobe-source-han-serif-tw-fonts | is Traditional Chinese OpenType/CFF Serif font. |
+| A | ibus-bamboo | is a Vietnamese IME for ibus. |
+| A | twmn-git | is a notification system for tiling window managers. |
+| A | lf | is a terminal file manager inspired by ranger written in Go. |
 | Z | https://gitlab.com/justanoobcoder/dwm-syaoran/-/archive/master/dwm-syaoran-master.zip | is a patched dwm (dynamic window manager) build. |
 | Z | https://gitlab.com/justanoobcoder/st-syaoran/-/archive/master/st-syaoran-master.zip | is a patched st (suckless/simple terminal) build. |
 | Z | https://gitlab.com/justanoobcoder/dwmblocks-syaoran/-/archive/master/dwmblocks-syaoran-master.zip | is dwm clickable status bar. |
