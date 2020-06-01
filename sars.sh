@@ -44,7 +44,7 @@ getuserandpass() {
 }
 
 preinstallmsg() { 
-	dialog --title "Let's get this party started!" --yes-label "Let's go!" --no-label "No, nevermind!" --yesno "The rest of the installation will now be totally automated, so you can sit back and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press <Let's go!> and the system will begin installation!" 13 60 || { clear; exit; }
+	dialog --title "Note" --yes-label "Next" --no-label "Exit" --yesno "From now on, the installation will be automated, it won't ask for any input so you can sit back, have some coffee and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press <Next> and the system will begin installation!" 13 60 || { clear; exit; }
 }
 
 adduserandpass() { 
@@ -127,11 +127,11 @@ installationloop() {
 	while IFS=, read -r tag program comment; do
 		n=$((n+1))
 		case "$tag" in
+			"M") maininstall "$program" "$comment" ;;
 			"A") aurinstall "$program" "$comment" ;;
 			"G") gitmakeinstall "$program" "$comment" ;;
 			"Z") zipmakeinstall "$program" "$comment" ;;
 			"P") pipinstall "$program" "$comment" ;;
-			"M") maininstall "$program" "$comment" ;;
 		esac
 	done < /tmp/package.list
 }
