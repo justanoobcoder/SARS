@@ -44,111 +44,111 @@ getuserandpass() {
 }
 
 preinstallmsg() { 
-	dialog --title "Note" --yes-label "Next" --no-label "Exit" --yesno "From now on, the installation will be automated, it won't ask for any input so you can sit back, have some coffee and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press <Next> and the system will begin installation!" 13 60 || { clear; exit; }
+    dialog --title "Note" --yes-label "Next" --no-label "Exit" --yesno "From now on, the installation will be automated, it won't ask for any input so you can sit back, have some coffee and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press <Next> and the system will begin installation!" 13 60 || { clear; exit; }
 }
 
 adduserandpass() { 
-	dialog --infobox "Adding user \"$username\"..." 4 50
-	useradd -m -G wheel,audio,video,optical,storage -s /bin/bash "$username" >/dev/null 2>&1 ||
-	usermod -aG wheel,audio,video,optical,storage "$username" && mkdir -p /home/"$username" && chown "$username":"$username" /home/"$username"
-	echo "$username:$pass1" | chpasswd
+    dialog --infobox "Adding user \"$username\"..." 4 50
+    useradd -m -G wheel,audio,video,optical,storage -s /bin/bash "$username" >/dev/null 2>&1 ||
+    usermod -aG wheel,audio,video,optical,storage "$username" && mkdir -p /home/"$username" && chown "$username":"$username" /home/"$username"
+    echo "$username:$pass1" | chpasswd
     # Unset password variables after applying password
-	unset pass1 pass2
+    unset pass1 pass2
 }
 
 refreshkeys() { \
-	dialog --infobox "Refreshing Arch Keyring..." 4 40
-	pacman --noconfirm -Sy archlinux-keyring >/dev/null 2>&1
+    dialog --infobox "Refreshing Arch Keyring..." 4 40
+    pacman --noconfirm -Sy archlinux-keyring >/dev/null 2>&1
 }
 
 appendsudoers() {
-	sed -i "/#SARS/d" /etc/sudoers
-	echo "$* #SARS" >> /etc/sudoers
+    sed -i "/#SARS/d" /etc/sudoers
+    echo "$* #SARS" >> /etc/sudoers
 }
 
 maininstall() {
-	dialog --title "SARS Installation" --infobox "Installing \`$1\` ($n of $total). $1 $2" 5 70
-	pacmaninstall "$1"
+    dialog --title "SARS Installation" --infobox "Installing \`$1\` ($n of $total). $1 $2" 5 70
+    pacmaninstall "$1"
 }
 
 gitmakeinstall() {
-	progname="$(basename "$1" .git)"
-	dir="$repodir/$progname"
-	dialog --title "SARS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $progname $2" 5 70
-	sudo -u "$username" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; sudo -u "$username" git pull --force origin master;}
-	cd "$dir" || exit
-	make >/dev/null 2>&1
-	make install >/dev/null 2>&1
-	cd /tmp || return 
+    progname="$(basename "$1" .git)"
+    dir="$repodir/$progname"
+    dialog --title "SARS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $progname $2" 5 70
+    sudo -u "$username" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; sudo -u "$username" git pull --force origin master;}
+    cd "$dir" || exit
+    make >/dev/null 2>&1
+    make install >/dev/null 2>&1
+    cd /tmp || return 
 }
 
 zipmakeinstall() {
     progname="$(cat "$1" | awk -F'/' '{print $5}')"
-	dialog --title "SARS Installation" --infobox "Installing \`$progname\` ($n of $total) via a zip file from \`git\` and \`make\`. $progname $2" 5 70
+    dialog --title "SARS Installation" --infobox "Installing \`$progname\` ($n of $total) via a zip file from \`git\` and \`make\`. $progname $2" 5 70
     pacmaninstall unzip
-	sudo -u "$username" curl "$1" -o "$repodir/${progname}.zip" >/dev/null 2>&1
+    sudo -u "$username" curl "$1" -o "$repodir/${progname}.zip" >/dev/null 2>&1
     cd "$repodir"
     sudo -u "$username" unzip "${progname}.zip" >/dev/null 2>&1
     rm *.zip ; sudo -u "$username" mv "${progname}-master" "$progname"
     cd "$progname" || exit
-	make >/dev/null 2>&1
-	make install >/dev/null 2>&1
-	cd /tmp || return 
+    make >/dev/null 2>&1
+    make install >/dev/null 2>&1
+    cd /tmp || return 
 }
 
 manualinstall() {
-	[ -f "/usr/bin/$1" ] || (
-	dialog --infobox "Installing \"$1\", an AUR helper...\\nMay require user password." 4 50
-	cd /tmp || exit
-	rm -rf /tmp/"$1"*
-	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/"$1".tar.gz &&
-	sudo -u "$username" tar -xvf "$1".tar.gz >/dev/null 2>&1 &&
-	cd "$1" &&
-	sudo -u "$username" makepkg --noconfirm -si >/dev/null 2>&1
-	cd /tmp || return) 
+    [ -f "/usr/bin/$1" ] || (
+    dialog --infobox "Installing \"$1\", an AUR helper...\\nMay require user password." 4 50
+    cd /tmp || exit
+    rm -rf /tmp/"$1"*
+    curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/"$1".tar.gz &&
+    sudo -u "$username" tar -xvf "$1".tar.gz >/dev/null 2>&1 &&
+    cd "$1" &&
+    sudo -u "$username" makepkg --noconfirm -si >/dev/null 2>&1
+    cd /tmp || return) 
 }
 
 aurinstall() {
-	dialog --title "SARS Installation" --infobox "Installing \`$1\` ($n of $total) from the AUR. $1 $2" 5 70
-	echo "$aurinstalled" | grep "^$1$" >/dev/null 2>&1 && return
-	sudo -u "$username" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
+    dialog --title "SARS Installation" --infobox "Installing \`$1\` ($n of $total) from the AUR. $1 $2" 5 70
+    echo "$aurinstalled" | grep "^$1$" >/dev/null 2>&1 && return
+    sudo -u "$username" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
 }
 
 pipinstall() { 
-	dialog --title "SARS Installation" --infobox "Installing the Python package \`$1\` ($n of $total). $1 $2" 5 70
-	command -v pip || pacmaninstall python-pip >/dev/null 2>&1
-	yes | pip install "$1"
+    dialog --title "SARS Installation" --infobox "Installing the Python package \`$1\` ($n of $total). $1 $2" 5 70
+    command -v pip || pacmaninstall python-pip >/dev/null 2>&1
+    yes | pip install "$1"
 }
 
 installationloop() { 
     curl -Ls "$packagelist" |  eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/package.list
     total=$(wc -l < /tmp/package.list)
-	aurinstalled=$(pacman -Qqm)
-	while IFS=, read -r tag program comment; do
-		n=$((n+1))
-		case "$tag" in
-			"M") maininstall "$program" "$comment" ;;
-			"A") aurinstall "$program" "$comment" ;;
-			"G") gitmakeinstall "$program" "$comment" ;;
-			"Z") zipmakeinstall "$program" "$comment" ;;
-			"P") pipinstall "$program" "$comment" ;;
-		esac
-	done < /tmp/package.list
+    aurinstalled=$(pacman -Qqm)
+    while IFS=, read -r tag program comment; do
+        n=$((n+1))
+        case "$tag" in
+            "M") maininstall "$program" "$comment" ;;
+            "A") aurinstall "$program" "$comment" ;;
+            "G") gitmakeinstall "$program" "$comment" ;;
+            "Z") zipmakeinstall "$program" "$comment" ;;
+            "P") pipinstall "$program" "$comment" ;;
+        esac
+    done < /tmp/package.list
 }
 
 downloadconfig() {
-	dialog --infobox "Downloading and installing config files..." 4 60
-	dir=$(mktemp -d)
-	[ ! -d "$2" ] && mkdir -p "$2"
-	chown -R "$username":"$username" "$dir" "$2"
-	sudo -u "$username" git clone --recursive -b master --depth 1 "$1" "$dir" >/dev/null 2>&1
-	sudo -u "$username" cp -rfT "$dir" "$2"
+    dialog --infobox "Downloading and installing config files..." 4 60
+    dir=$(mktemp -d)
+    [ ! -d "$2" ] && mkdir -p "$2"
+    chown -R "$username":"$username" "$dir" "$2"
+    sudo -u "$username" git clone --recursive -b master --depth 1 "$1" "$dir" >/dev/null 2>&1
+    sudo -u "$username" cp -rfT "$dir" "$2"
 }
 
 systembeepoff() { 
     dialog --infobox "Getting rid of that retarded error beep sound..." 10 50
-	rmmod pcspkr
-	echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf 
+    rmmod pcspkr
+    echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf 
 }
 
 createdirs() {
@@ -157,7 +157,7 @@ createdirs() {
 }
 
 finalize(){ 
-	dialog --title "All done!" --msgbox "Congrats! Provided there were no hidden errors, the script completed successfully and all the programs and configuration files should be in place.\\n\\nTo run the new graphical environment, log out and log back in as your new user, then run the command \"startx\" to start the graphical environment (it will start automatically in tty1)." 12 80
+    dialog --title "All done!" --msgbox "Congrats! Provided there were no hidden errors, the script completed successfully and all the programs and configuration files should be in place.\\n\\nTo run the new graphical environment, log out and log back in as your new user, then run the command \"startx\" to start the graphical environment (it will start automatically in tty1)." 12 80
 }
 
 ### MAIN FUNCTION ###
