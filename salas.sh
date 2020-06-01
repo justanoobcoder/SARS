@@ -3,28 +3,21 @@
 [ $EUID != 0 ] && echo -e "Permission denied!
 Run this script as root" && exit
 
-### INSTALL DIALOG ###
+### VARIABLES ###
 
-pacman -Q dialg >/dev/null 2>&1 || pacman -S dialog --noconfirm
-
-### OPTIONS AND VARIABLES ###
-
-while getopts ":a:h" o; do case "${o}" in
-	h) printf "Optional arguments:\\n  -a: AUR helper\\n  -h: Show this message\\n" && exit ;;
-	a) aurhelper=${OPTARG} ;;
-	*) printf "Invalid option: -%s\\n" "$OPTARG" && exit ;;
-esac done
-
-dotfilesrepo="https://gitlab.com/justanoobcoder/my-config.git"
-repobranch="master"
+config="https://gitlab.com/justanoobcoder/my-config.git"
 packagelist="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/README.md"
-[ -z "$aurhelper" ] && aurhelper="yay"
+aurhelper="yay"
 
 ### FUNCTIONS ###
 
-installpkg(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
+pacmaninstall(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 
-error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
+error() {
+    clear
+    printf "ERROR:\\n%s\\n" "$1"
+    exit
+}
 
 welcomemsg() { 
 	dialog --title "Welcome!" --msgbox "Welcome to SALAS - Syaoran's Arch Linux Auto Setup!\\n\\nThis script will automatically install a fully-featured Linux desktop, which I use as my main machine." 10 60
@@ -52,7 +45,6 @@ preinstallmsg() {
 }
 
 adduserandpass() { 
-	# Adds user `$name` with password $pass1.
 	dialog --infobox "Adding user \"$name\"..." 4 50
 	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
 	usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
@@ -66,14 +58,11 @@ refreshkeys() { \
 	pacman --noconfirm -Sy archlinux-keyring >/dev/null 2>&1
 }
 
-newperms() { # Set special sudoers settings for install (or after).
-	#sed -i "/#SALAS/d" /etc/sudoers
-	echo "$*" >> /etc/sudoers
-}
+appendsudoers() { echo "$*" >> /etc/sudoers ; }
 
-maininstall() { # Installs all needed programs from main repo.
+maininstall() {
 	dialog --title "SALAS Installation" --infobox "Installing \`$1\` ($n of $total). $1 $2" 5 70
-	installpkg "$1"
+	pacmaninstall "$1"
 }
 
 gitmakeinstall() {
@@ -91,8 +80,8 @@ gitzipmakeinstall() {
 	progname="$(basename "$1" -master.zip)"
 	zipname="$(basename "$1" .zip)"
 	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via a zip file from \`git\` and \`make\`. $progname $2" 5 70
-    installpkg wget
-    installpkg unzip
+    pacmaninstall wget
+    pacmaninstall unzip
 	sudo -u "$name" wget "$1" -O "$repodir/${zipname}.zip" >/dev/null 2>&1
     cd "$repodir"
     sudo -u "$name" unzip "${zipname}.zip" >/dev/null 2>&1
@@ -123,7 +112,7 @@ aurinstall() {
 
 pipinstall() { 
 	dialog --title "SALAS Installation" --infobox "Installing the Python package \`$1\` ($n of $total). $1 $2" 5 70
-	command -v pip || installpkg python-pip >/dev/null 2>&1
+	command -v pip || pacmaninstall python-pip >/dev/null 2>&1
 	yes | pip install "$1"
 }
 
@@ -146,11 +135,10 @@ installationloop() {
 
 putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwriting conflicts
 	dialog --infobox "Downloading and installing config files..." 4 60
-	[ -z "$3" ] && branch="master" || branch="$repobranch"
 	dir=$(mktemp -d)
 	[ ! -d "$2" ] && mkdir -p "$2"
 	chown -R "$name":wheel "$dir" "$2"
-	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 "$1" "$dir" >/dev/null 2>&1
+	sudo -u "$name" git clone --recursive -b master --depth 1 "$1" "$dir" >/dev/null 2>&1
 	sudo -u "$name" cp -rfT "$dir" "$2"
 }
 
@@ -165,26 +153,6 @@ createdirs() {
     sudo -u "$name" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/{Wallpapers,Screenshots}}
 }
 
-xorgconfig() {
-    dialog --title "Attention" --yes-label "Yes" --no-label "No" --yesno "Is your machine an Intel laptop? Choose <No> if you are installing on virtual machine." 5 50 || return
-
-    echo 'Section "Device"
-  	Identifier 	"Intel Graphics"
-  	Driver 		"intel"
-
-	Option 		"DRI" 			"2"
-	Option      "AccelMethod"  	"uxa"
-  	Option 		"TearFree" 		"true"
-EndSection' > /etc/X11/xorg.conf.d/20-intel.conf
-    
-    echo 'Section "InputClass"
-    Identifier "devname"
-    Driver "libinput"
-
-	Option "Tapping" "on"
-EndSection' > /etc/X11/xorg.conf.d/30-touchpad.conf
-}
-
 finalize(){ 
 	dialog --infobox "Preparing welcome message..." 4 50
 
@@ -196,7 +164,7 @@ finalize(){
 ### This is how everything happens in an intuitive format and order.
 
 # Check if user is root on Arch distro. Install dialog.
-installpkg dialog || error "Are you sure you're running this as the root user and have an internet connection?"
+pacmaninstall dialog || error "Are you sure you're running this as the root user and have an internet connection?"
 
 # Welcome user.
 welcomemsg || error "User exited."
@@ -214,9 +182,9 @@ preinstallmsg || error "User exited."
 refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
 
 dialog --title "SALAS Installation" --infobox "Installing \`basedevel\` and \`git\` for installing other software required for the installation of other programs." 5 70
-installpkg curl
-installpkg base-devel
-installpkg git
+pacmaninstall curl
+pacmaninstall base-devel
+pacmaninstall git
 
 [ -f /etc/sudoers.pacnew ] && cp /etc/sudoers.pacnew /etc/sudoers # Just in case
 
@@ -243,7 +211,7 @@ dialog --title "SALAS Installation" --infobox "Finally, installing \`libxft-bgra
 pacman -Q libxft-bgra >/dev/null 2>&1 || yes | sudo -u "$name" $aurhelper -S libxft-bgra >/dev/null 2>&1
 
 # Install the dotfiles in the user's home directory
-putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
+putgitrepo "$config" "/home/$name" master
 rm -f "/home/$name/README.md" "/home/$name/LICENSE"
 # make git ignore deleted LICENSE & README.md files
 git update-index --assume-unchanged "/home/$name/README.md"
@@ -259,11 +227,9 @@ sudo -u "$name" mkdir -p "/home/$name/.cache/zsh/"
 # Start/restart PulseAudio.
 killall pulseaudio; sudo -u "$name" pulseaudio --start
 
-newperms "
+appendsudoers "
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
 Defaults editor=/usr/bin/nvim"
-
-xorgconfig
 
 # Create user's directories
 createdirs
