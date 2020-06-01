@@ -162,7 +162,7 @@ systembeepoff() {
 
 createdirs() {
     cd "/home/$name"
-    sudo -u "$name" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/Screenshots}
+    sudo -u "$name" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/{Wallpapers,Screenshots}}
 }
 
 xorgconfig() {
