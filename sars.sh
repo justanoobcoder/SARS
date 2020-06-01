@@ -2,7 +2,7 @@
 
 ### CHECK ROOT PERMISSION ###
 
-[ $EUID != 0 ] && echo "Permission denied!
+[ $EUID -ne 0 ] && echo "Permission denied!
 Run this script as user root." && exit
 
 ### VARIABLES ###
@@ -19,7 +19,7 @@ error() {
     exit
 }
 
-pacmaninstall(){
+pacmaninstall() {
     pacman -S "$1" --noconfirm --needed >/dev/null 2>&1
 }
 
@@ -49,9 +49,10 @@ preinstallmsg() {
 
 adduserandpass() { 
 	dialog --infobox "Adding user \"$username\"..." 4 50
-	useradd -m -g wheel -s /bin/bash "$username" >/dev/null 2>&1 ||
-	usermod -a -G wheel "$username" && mkdir -p /home/"$username" && chown "$username":wheel /home/"$username"
+	useradd -m -G wheel,audio,video,optical,storage -s /bin/bash "$username" >/dev/null 2>&1 ||
+	usermod -aG wheel,audio,video,optical,storage "$username" && mkdir -p /home/"$username" && chown "$username":"$username" /home/"$username"
 	echo "$username:$pass1" | chpasswd
+    # Unset password variables after applying password
 	unset pass1 pass2
 }
 
@@ -84,9 +85,8 @@ gitmakeinstall() {
 zipmakeinstall() {
     progname="$(cat "$1" | awk -F'/' '{print $5}')"
 	dialog --title "SARS Installation" --infobox "Installing \`$progname\` ($n of $total) via a zip file from \`git\` and \`make\`. $progname $2" 5 70
-    pacmaninstall wget
     pacmaninstall unzip
-	sudo -u "$username" wget "$1" -O "$repodir/${progname}.zip" >/dev/null 2>&1
+	sudo -u "$username" curl "$1" -o "$repodir/${progname}.zip" >/dev/null 2>&1
     cd "$repodir"
     sudo -u "$username" unzip "${progname}.zip" >/dev/null 2>&1
     rm *.zip ; sudo -u "$username" mv "${progname}-master" "$progname"
@@ -140,7 +140,7 @@ downloadconfig() {
 	dialog --infobox "Downloading and installing config files..." 4 60
 	dir=$(mktemp -d)
 	[ ! -d "$2" ] && mkdir -p "$2"
-	chown -R "$username":wheel "$dir" "$2"
+	chown -R "$username":"$username" "$dir" "$2"
 	sudo -u "$username" git clone --recursive -b master --depth 1 "$1" "$dir" >/dev/null 2>&1
 	sudo -u "$username" cp -rfT "$dir" "$2"
 }
@@ -179,7 +179,7 @@ main() {
     [ "$user_exist" != "true" ] && { adduserandpass || error "Error adding username and/or password."; }
 
     # Create repository directory
-    repodir="/home/$username/user/Workspace/repo" && mkdir -p "$repodir" && chown -R "$username":wheel $(dirname "$repodir")
+    repodir="/home/$username/user/Workspace/repo" && mkdir -p "$repodir" && chown -R "$username":"$username" $(dirname "$repodir")
 
     # Refresh Arch keyrings.
     refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
