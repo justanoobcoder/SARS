@@ -24,23 +24,23 @@ pacmaninstall() {
 }
 
 welcomemsg() { 
-	dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script will automatically install and setup a fully-featured Arch linux desktop, which I use as my main machine." 10 60
+    dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script will automatically install and setup a fully-featured Arch linux desktop, which I use as my main machine." 10 60
     dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). So if you use other WM or DE then choose <Exit> to exit this script." 8 80 || { clear; exit; }
 }
 
 getuserandpass() { 
-	username=$(dialog --inputbox "Enter a name for the user account. You can enter a user name that already exists or doesn't exist yet." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
-	while ! echo "$username" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
-		username=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _" 10 60 3>&1 1>&2 2>&3 3>&1)
-	done
-	id -u "$username" >/dev/null 2>&1 && user_exist="true" || {
-	pass1=$(dialog --no-cancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1);
-	pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1);
-	while ! [ "$pass1" = "$pass2" ]; do
-		unset pass2
-		pass1=$(dialog --no-cancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
-		pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
-	done ; }
+    username=$(dialog --inputbox "Enter a name for the user account. You can enter a user name that already exists or doesn't exist yet." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
+    while ! echo "$username" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
+        username=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _" 10 60 3>&1 1>&2 2>&3 3>&1)
+    done
+    id -u "$username" >/dev/null 2>&1 && user_exist="true" || {
+    pass1=$(dialog --no-cancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1);
+    pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1);
+    while ! [ "$pass1" = "$pass2" ]; do
+        unset pass2
+        pass1=$(dialog --no-cancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
+        pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
+    done ; }
 }
 
 preinstallmsg() { 
