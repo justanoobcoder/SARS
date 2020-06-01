@@ -164,7 +164,7 @@ finalize(){
 
 main() {
     # Install dialog.
-    pacmaninstall dialog || error "Are you sure you have an internet connection?"
+    echo "Installing dialog package." && pacmaninstall dialog || error "Are you sure you have an internet connection?"
 
     # Welcome user.
     welcomemsg || error "User exited."
