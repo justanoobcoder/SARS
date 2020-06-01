@@ -39,6 +39,7 @@ Syaoran's Arch Linux Auto Script (SALAS) is a script that autoinstalls and sets 
 | M | mpc | is a terminal interface for mpd. |
 | M | mpv | is the patrician's choice video player. |
 | M | man-db | lets you read man pages of programs. |
+| M | pacman-contrib | contains contributed scripts and tools for pacman systems. |
 | M | ncmpcpp | is a ncurses interface for music with multiple formats and a powerful tag editor. |
 | M | noto-fonts-emoji | is an emoji font. |
 | M | pulseaudio | is a general purpose sound server intended to run as a middleware between your applications and your hardware devices, either using ALSA or OSS. |
