@@ -1,17 +1,17 @@
 #!/bin/bash
 
-[ $EUID != 0 ] && echo -e "Permission denied!
-Run this script as root" && exit
+### CHECK ROOT PERMISSION ###
+
+[ $EUID != 0 ] && echo "Permission denied!
+Run this script as user root." && exit
 
 ### VARIABLES ###
 
 config="https://gitlab.com/justanoobcoder/my-config.git"
-packagelist="https://gitlab.com/justanoobcoder/SALAS/-/raw/master/README.md"
+packagelist="https://gitlab.com/justanoobcoder/SARS/-/raw/master/README.md"
 aurhelper="yay"
 
 ### FUNCTIONS ###
-
-pacmaninstall(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 
 error() {
     clear
@@ -19,18 +19,21 @@ error() {
     exit
 }
 
+pacmaninstall(){
+    pacman -S "$1" --noconfirm --needed >/dev/null 2>&1
+}
+
 welcomemsg() { 
-	dialog --title "Welcome!" --msgbox "Welcome to SALAS - Syaoran's Arch Linux Auto Setup!\\n\\nThis script will automatically install a fully-featured Linux desktop, which I use as my main machine." 10 60
-    dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script sets up dwm-syaoran (my suckless's dwm build). So if you use other WM or DE then choose <Exit> to exit this script." 8 80 || { clear; exit; }
+	dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script will automatically install and setup a fully-featured Arch linux desktop, which I use as my main machine." 10 60
+    dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). So if you use other WM or DE then choose <Exit> to exit this script." 8 80 || { clear; exit; }
 }
 
 getuserandpass() { 
-	# Prompts user for new username an password.
-	name=$(dialog --inputbox "First, please enter a name for the user account." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
-	while ! echo "$name" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
-		name=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _." 10 60 3>&1 1>&2 2>&3 3>&1)
+	username=$(dialog --inputbox "Enter a name for the user account. You can enter a user name that already exists or doesn't exist yet." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
+	while ! echo "$username" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
+		username=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _" 10 60 3>&1 1>&2 2>&3 3>&1)
 	done
-	id -u "$name" >/dev/null 2>&1 && user_exist="true" && repodir="/home/$name/user/Workspace/repo" && mkdir -p "$repodir" && chown -R "$name":wheel $(dirname "$repodir") || {
+	id -u "$username" >/dev/null 2>&1 && user_exist="true" || {
 	pass1=$(dialog --no-cancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1);
 	pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1);
 	while ! [ "$pass1" = "$pass2" ]; do
@@ -45,11 +48,10 @@ preinstallmsg() {
 }
 
 adduserandpass() { 
-	dialog --infobox "Adding user \"$name\"..." 4 50
-	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
-	usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
-	repodir="/home/$name/user/Workspace/repo"; mkdir -p "$repodir"; chown -R "$name":wheel $(dirname "$repodir")
-	echo "$name:$pass1" | chpasswd
+	dialog --infobox "Adding user \"$username\"..." 4 50
+	useradd -m -g wheel -s /bin/bash "$username" >/dev/null 2>&1 ||
+	usermod -a -G wheel "$username" && mkdir -p /home/"$username" && chown "$username":wheel /home/"$username"
+	echo "$username:$pass1" | chpasswd
 	unset pass1 pass2
 }
 
@@ -58,60 +60,62 @@ refreshkeys() { \
 	pacman --noconfirm -Sy archlinux-keyring >/dev/null 2>&1
 }
 
-appendsudoers() { echo "$*" >> /etc/sudoers ; }
+appendsudoers() {
+	sed -i "/#SARS/d" /etc/sudoers
+	echo "$* #SARS" >> /etc/sudoers
+}
 
 maininstall() {
-	dialog --title "SALAS Installation" --infobox "Installing \`$1\` ($n of $total). $1 $2" 5 70
+	dialog --title "SARS Installation" --infobox "Installing \`$1\` ($n of $total). $1 $2" 5 70
 	pacmaninstall "$1"
 }
 
 gitmakeinstall() {
 	progname="$(basename "$1" .git)"
 	dir="$repodir/$progname"
-	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $progname $2" 5 70
-	sudo -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; sudo -u "$name" git pull --force origin master;}
+	dialog --title "SARS Installation" --infobox "Installing \`$progname\` ($n of $total) via \`git\` and \`make\`. $progname $2" 5 70
+	sudo -u "$username" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return ; sudo -u "$username" git pull --force origin master;}
 	cd "$dir" || exit
 	make >/dev/null 2>&1
 	make install >/dev/null 2>&1
 	cd /tmp || return 
 }
 
-gitzipmakeinstall() {
-	progname="$(basename "$1" -master.zip)"
-	zipname="$(basename "$1" .zip)"
-	dialog --title "SALAS Installation" --infobox "Installing \`$progname\` ($n of $total) via a zip file from \`git\` and \`make\`. $progname $2" 5 70
+zipmakeinstall() {
+    progname="$(cat "$1" | awk -F'/' '{print $5}')"
+	dialog --title "SARS Installation" --infobox "Installing \`$progname\` ($n of $total) via a zip file from \`git\` and \`make\`. $progname $2" 5 70
     pacmaninstall wget
     pacmaninstall unzip
-	sudo -u "$name" wget "$1" -O "$repodir/${zipname}.zip" >/dev/null 2>&1
+	sudo -u "$username" wget "$1" -O "$repodir/${progname}.zip" >/dev/null 2>&1
     cd "$repodir"
-    sudo -u "$name" unzip "${zipname}.zip" >/dev/null 2>&1
-    rm *.zip ; sudo -u "$name" mv "$zipname" "$progname"
+    sudo -u "$username" unzip "${progname}.zip" >/dev/null 2>&1
+    rm *.zip ; sudo -u "$username" mv "${progname}-master" "$progname"
     cd "$progname" || exit
 	make >/dev/null 2>&1
 	make install >/dev/null 2>&1
 	cd /tmp || return 
 }
 
-manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.
+manualinstall() {
 	[ -f "/usr/bin/$1" ] || (
-	dialog --infobox "Installing \"$1\", an AUR helper..." 4 50
+	dialog --infobox "Installing \"$1\", an AUR helper...\\nMay require user password." 4 50
 	cd /tmp || exit
 	rm -rf /tmp/"$1"*
 	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/"$1".tar.gz &&
-	sudo -u "$name" tar -xvf "$1".tar.gz >/dev/null 2>&1 &&
+	sudo -u "$username" tar -xvf "$1".tar.gz >/dev/null 2>&1 &&
 	cd "$1" &&
-	sudo -u "$name" makepkg --noconfirm -si >/dev/null 2>&1
+	sudo -u "$username" makepkg --noconfirm -si >/dev/null 2>&1
 	cd /tmp || return) 
 }
 
 aurinstall() {
-	dialog --title "SALAS Installation" --infobox "Installing \`$1\` ($n of $total) from the AUR. $1 $2" 5 70
+	dialog --title "SARS Installation" --infobox "Installing \`$1\` ($n of $total) from the AUR. $1 $2" 5 70
 	echo "$aurinstalled" | grep "^$1$" >/dev/null 2>&1 && return
-	sudo -u "$name" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
+	sudo -u "$username" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
 }
 
 pipinstall() { 
-	dialog --title "SALAS Installation" --infobox "Installing the Python package \`$1\` ($n of $total). $1 $2" 5 70
+	dialog --title "SARS Installation" --infobox "Installing the Python package \`$1\` ($n of $total). $1 $2" 5 70
 	command -v pip || pacmaninstall python-pip >/dev/null 2>&1
 	yes | pip install "$1"
 }
@@ -122,24 +126,23 @@ installationloop() {
 	aurinstalled=$(pacman -Qqm)
 	while IFS=, read -r tag program comment; do
 		n=$((n+1))
-#		echo "$comment" | grep "^\".*\"$" >/dev/null 2>&1 && comment="$(echo "$comment" | sed "s/\(^\"\|\"$\)//g")"
 		case "$tag" in
 			"A") aurinstall "$program" "$comment" ;;
 			"G") gitmakeinstall "$program" "$comment" ;;
-			"Z") gitzipmakeinstall "$program" "$comment" ;;
+			"Z") zipmakeinstall "$program" "$comment" ;;
 			"P") pipinstall "$program" "$comment" ;;
 			"M") maininstall "$program" "$comment" ;;
 		esac
 	done < /tmp/package.list
 }
 
-putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwriting conflicts
+downloadconfig() {
 	dialog --infobox "Downloading and installing config files..." 4 60
 	dir=$(mktemp -d)
 	[ ! -d "$2" ] && mkdir -p "$2"
-	chown -R "$name":wheel "$dir" "$2"
-	sudo -u "$name" git clone --recursive -b master --depth 1 "$1" "$dir" >/dev/null 2>&1
-	sudo -u "$name" cp -rfT "$dir" "$2"
+	chown -R "$username":wheel "$dir" "$2"
+	sudo -u "$username" git clone --recursive -b master --depth 1 "$1" "$dir" >/dev/null 2>&1
+	sudo -u "$username" cp -rfT "$dir" "$2"
 }
 
 systembeepoff() { 
@@ -149,92 +152,85 @@ systembeepoff() {
 }
 
 createdirs() {
-    cd "/home/$name"
-    sudo -u "$name" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/{Wallpapers,Screenshots}}
+    cd "/home/$username"
+    sudo -u "$username" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/{Wallpapers,Screenshots}}
 }
 
 finalize(){ 
-	dialog --infobox "Preparing welcome message..." 4 50
-
 	dialog --title "All done!" --msgbox "Congrats! Provided there were no hidden errors, the script completed successfully and all the programs and configuration files should be in place.\\n\\nTo run the new graphical environment, log out and log back in as your new user, then run the command \"startx\" to start the graphical environment (it will start automatically in tty1)." 12 80
 }
 
-### THE ACTUAL SCRIPT ###
+### MAIN FUNCTION ###
 
-### This is how everything happens in an intuitive format and order.
+main() {
+    # Install dialog.
+    pacmaninstall dialog || error "Are you sure you have an internet connection?"
 
-# Check if user is root on Arch distro. Install dialog.
-pacmaninstall dialog || error "Are you sure you're running this as the root user and have an internet connection?"
+    # Welcome user.
+    welcomemsg || error "User exited."
 
-# Welcome user.
-welcomemsg || error "User exited."
+    # Get and verify username and password.
+    getuserandpass || error "User exited."
 
-# Get and verify username and password.
-getuserandpass || error "User exited."
+    # Last chance for user to back out before install.
+    preinstallmsg || error "User exited."
 
-# Last chance for user to back out before install.
-preinstallmsg || error "User exited."
+    # Add user and password if not exist.
+    [ "$user_exist" != "true" ] && { adduserandpass || error "Error adding username and/or password."; }
 
-### The rest of the script requires no user input.
-[ "$user_exist" != "true" ] && { adduserandpass || error "Error adding username and/or password."; }
+    # Create repository directory
+    repodir="/home/$username/user/Workspace/repo" && mkdir -p "$repodir" && chown -R "$username":wheel $(dirname "$repodir")
 
-# Refresh Arch keyrings.
-refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
+    # Refresh Arch keyrings.
+    refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
 
-dialog --title "SALAS Installation" --infobox "Installing \`basedevel\` and \`git\` for installing other software required for the installation of other programs." 5 70
-pacmaninstall curl
-pacmaninstall base-devel
-pacmaninstall git
+    dialog --title "SARS Installation" --infobox "Installing \`basedevel\` and \`git\` for installing other software required for the installation of other programs." 5 70
+    pacmaninstall curl
+    pacmaninstall base-devel
+    pacmaninstall git
 
-[ -f /etc/sudoers.pacnew ] && cp /etc/sudoers.pacnew /etc/sudoers # Just in case
+    # Allow user to run sudo without password. Since AUR programs must be installed
+    # in a fakeroot environment, this is required for all builds with AUR.
+    appendsudoers "%wheel ALL=(ALL) NOPASSWD: ALL"
 
-# Allow user to run sudo without password. Since AUR programs must be installed
-# in a fakeroot environment, this is required for all builds with AUR.
-#newperms "%wheel ALL=(ALL) NOPASSWD: ALL"
+    # Make pacman and yay colorful and adds eye candy on the progress bar because why not.
+    grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
+    grep "ILoveCandy" /etc/pacman.conf >/dev/null || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
 
-# Make pacman and yay colorful and adds eye candy on the progress bar because why not.
-grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color$/Color/" /etc/pacman.conf
-grep "ILoveCandy" /etc/pacman.conf >/dev/null || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
+    # Use all cores for compilation.
+    sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
 
-# Use all cores for compilation.
-sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
+    # Install aur helper.
+    manualinstall $aurhelper || error "Failed to install AUR helper."
 
-manualinstall $aurhelper || error "Failed to install AUR helper."
+    # Install all packages in packagelist.
+    installationloop
 
-# The command that does all the installing. Reads the package.list file and
-# installs each needed program the way required. Be sure to run this only after
-# the user has been created and has priviledges to run sudo without a password
-# and all build dependencies are installed.
-installationloop
+    # Install libxft-bgra. This is important package for suckless programs like dwm or st, they will crash without it.
+    dialog --title "SARS Installation" --infobox "Finally, installing \`libxft-bgra\` to enable color emoji in suckless software without crashes." 5 70
+    pacman -Q libxft-bgra >/dev/null 2>&1 || yes | sudo -u "$username" $aurhelper -S libxft-bgra >/dev/null 2>&1
 
-dialog --title "SALAS Installation" --infobox "Finally, installing \`libxft-bgra\` to enable color emoji in suckless software without crashes." 5 70
-pacman -Q libxft-bgra >/dev/null 2>&1 || yes | sudo -u "$name" $aurhelper -S libxft-bgra >/dev/null 2>&1
+    # Download config files and put them in home directory.
+    downloadconfig "$config" "/home/$username" master
 
-# Install the dotfiles in the user's home directory
-putgitrepo "$config" "/home/$name" master
-rm -f "/home/$name/README.md" "/home/$name/LICENSE"
-# make git ignore deleted LICENSE & README.md files
-git update-index --assume-unchanged "/home/$name/README.md"
-git update-index --assume-unchanged "/home/$name/LICENSE"
+    # Most important command! Get rid of the beep!
+    systembeepoff
 
-# Most important command! Get rid of the beep!
-systembeepoff
+    # Make zsh the default shell for the user.
+    chsh -s /bin/zsh $username >/dev/null 2>&1
+    sudo -u "$username" mkdir -p "/home/$username/.cache/zsh/"
 
-# Make zsh the default shell for the user.
-chsh -s /bin/zsh $name >/dev/null 2>&1
-sudo -u "$name" mkdir -p "/home/$name/.cache/zsh/"
+    appendsudoers "
+    %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
+    Defaults editor=/usr/bin/nvim"
 
-# Start/restart PulseAudio.
-killall pulseaudio; sudo -u "$name" pulseaudio --start
+    # Create user's directories
+    createdirs
 
-appendsudoers "
-%wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
-Defaults editor=/usr/bin/nvim"
+    # Last message! Install complete!
+    finalize
 
-# Create user's directories
-createdirs
+    clear
+}
 
-# Last message! Install complete!
-finalize
-
-clear
+main
