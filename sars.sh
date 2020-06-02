@@ -24,12 +24,12 @@ pacmaninstall() {
 }
 
 welcomemsg() { 
-    dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script will automatically install and setup a fully-featured Arch linux desktop, which I use as my main machine." 10 60
-    dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). So if you use other WM or DE then choose <Exit> to exit this script." 8 80 || { clear; exit; }
+    dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script is based on Luke Smith's LARBS.\\nThis script will automatically install and setup a fully-featured Arch linux desktop, which I use as my main machine." 10 60
+    dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). So if you use other WM or DE then choose < Exit > to exit this script." 8 80 || { clear; exit; }
 }
 
 getuserandpass() { 
-    username=$(dialog --inputbox "Enter a name for the user account. You can enter a user name that already exists or doesn't exist yet." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
+    username=$(dialog --inputbox "Enter a name for the user account. You can enter a user name that already exists or doesn't exist yet. It will create a new user if that user doesn't exist." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
     while ! echo "$username" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
         username=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _" 10 60 3>&1 1>&2 2>&3 3>&1)
     done
@@ -44,7 +44,7 @@ getuserandpass() {
 }
 
 preinstallmsg() { 
-    dialog --title "Note" --yes-label "Next" --no-label "Exit" --yesno "From now on, the installation will be automated, it won't ask for any input so you can sit back, have some coffee and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press <Next> and the system will begin installation!" 13 60 || { clear; exit; }
+    dialog --title "Note" --yes-label "Next" --no-label "Exit" --yesno "From now on, the installation will be automated, it won't ask for any input so you can sit back, have some coffee and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press < Next > and the system will begin installation!" 13 60 || { clear; exit; }
 }
 
 adduserandpass() { 
@@ -98,7 +98,7 @@ zipmakeinstall() {
 
 manualinstall() {
     [ -f "/usr/bin/$1" ] || (
-    dialog --infobox "Installing \"$1\", an AUR helper...\\nMay require user password." 4 50
+    dialog --infobox "Installing \"$1\", an AUR helper..." 4 50
     cd /tmp || exit
     rm -rf /tmp/"$1"*
     curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/"$1".tar.gz &&
