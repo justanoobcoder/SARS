@@ -39,7 +39,9 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | pcmanfm | is an extremely fast and lightweight file manager. |
 | M | feh | sets the wallpaper. |
 | M | ffmpeg | can record and splice video and audio on the command line. |
+| M | maim | is utility to take a screenshot using imlib2. |
 | M | gnome-keyring | serves as the system keyring. |
+| M | xdotool | is command-line X11 automation tool. |
 | M | neovim | a tidier vim with some useful features |
 | M | mpd | is a lightweight music daemon. |
 | M | mpc | is a terminal interface for mpd. |
@@ -76,7 +78,6 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | adobe-source-han-serif-cn-fonts | is Simplified Chinese OpenType/CFF Serif font. | 
 | M | adobe-source-han-serif-tw-fonts | is Traditional Chinese OpenType/CFF Serif font. |
 | A | ibus-bamboo | is a Vietnamese IME for ibus. |
-| A | twmn-git | is a notification system for tiling window managers. |
 | A | lf | is a terminal file manager inspired by ranger written in Go. |
 | Z | https://gitlab.com/justanoobcoder/dwm-syaoran/-/archive/master/dwm-syaoran-master.zip | is a patched dwm (dynamic window manager) build. |
 | Z | https://gitlab.com/justanoobcoder/st-syaoran/-/archive/master/st-syaoran-master.zip | is a patched st (suckless/simple terminal) build. |
