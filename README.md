@@ -29,7 +29,6 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | xf86-video-intel | is X.org Intel i810/i830/i915/945G/G965+ video driver. |
 | M | ttf-linux-libertine | provides the sans and serif fonts. |
 | M | arandr | is a UI for screen adjustment. |
-| M | dmenu | is a fast and lightweight dynamic menu for X. |
 | M | fzf | is command-line fuzzy finder. |
 | M | picom | is for transparency and removing screen-tearing. |
 | M | xorg-xprop | is a tool for detecting window properties. |
@@ -82,5 +81,6 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | Z | https://gitlab.com/justanoobcoder/dwm-syaoran/-/archive/master/dwm-syaoran-master.zip | is a patched dwm (dynamic window manager) build. |
 | Z | https://gitlab.com/justanoobcoder/st-syaoran/-/archive/master/st-syaoran-master.zip | is a patched st (suckless/simple terminal) build. |
 | Z | https://gitlab.com/justanoobcoder/dwmblocks-syaoran/-/archive/master/dwmblocks-syaoran-master.zip | is dwm clickable status bar. |
+| Z | https://gitlab.com/justanoobcoder/dmenu-syaoran/-/archive/master/dmenu-syaoran-master.zip | is a fast and lightweight dynamic menu for X. |
 | Z | https://gitlab.com/justanoobcoder/scrcast/-/archive/master/scrcast-master.zip | is a simple screenshot and screencast script. |
 | Z | https://gitlab.com/justanoobcoder/srfetch/-/archive/master/srfetch-master.zip | is a modified neofetch script. |
