@@ -26,14 +26,18 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | :--- | :--- | :--- |
 | M | xorg | includes Xorg server packages, packages from the xorg-apps group and fonts. |
 | M | xorg-xinit | starts the graphical server. |
+| M | xf86-video-intel | is X.org Intel i810/i830/i915/945G/G965+ video driver. |
 | M | ttf-linux-libertine | provides the sans and serif fonts. |
 | M | arandr | is a UI for screen adjustment. |
 | M | dmenu | is a fast and lightweight dynamic menu for X. |
+| M | fzf | is command-line fuzzy finder. |
 | M | picom | is for transparency and removing screen-tearing. |
 | M | xorg-xprop | is a tool for detecting window properties. |
 | M | dosfstools | allows your computer to access dos-like filesystems. |
 | M | libnotify | allows desktop notifications. |
 | M | sxiv | is a minimalist image viewer. |
+| M | htop | is an interactive process viewer. |
+| M | pcmanfm | is an extremely fast and lightweight file manager. |
 | M | feh | sets the wallpaper. |
 | M | ffmpeg | can record and splice video and audio on the command line. |
 | M | gnome-keyring | serves as the system keyring. |
