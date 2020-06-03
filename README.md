@@ -26,7 +26,6 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | :--- | :--- | :--- |
 | M | xorg | includes Xorg server packages, packages from the xorg-apps group and fonts. |
 | M | xorg-xinit | starts the graphical server. |
-| M | xf86-video-intel | is X.org Intel i810/i830/i915/945G/G965+ video driver. |
 | M | ttf-linux-libertine | provides the sans and serif fonts. |
 | M | arandr | is a UI for screen adjustment. |
 | M | fzf | is command-line fuzzy finder. |
