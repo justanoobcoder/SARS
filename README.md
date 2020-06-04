@@ -33,10 +33,11 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | xorg-xprop | is a tool for detecting window properties. |
 | M | dosfstools | allows your computer to access dos-like filesystems. |
 | M | libnotify | allows desktop notifications. |
+| M | dunst | is a customizable and lightweight notification-daemon. |
 | M | sxiv | is a minimalist image viewer. |
 | M | htop | is an interactive process viewer. |
 | M | pcmanfm | is an extremely fast and lightweight file manager. |
-| M | feh | sets the wallpaper. |
+| M | xwallpaper | sets the wallpaper. |
 | M | ffmpeg | can record and splice video and audio on the command line. |
 | M | maim | is utility to take a screenshot using imlib2. |
 | M | gnome-keyring | serves as the system keyring. |
@@ -47,6 +48,7 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | mpv | is the patrician's choice video player. |
 | M | man-db | lets you read man pages of programs. |
 | M | pacman-contrib | contains contributed scripts and tools for pacman systems. |
+| M | calcurse | is a lightweight terminal-based calendar. |
 | M | ncmpcpp | is a ncurses interface for music with multiple formats and a powerful tag editor. |
 | M | noto-fonts-emoji | is an emoji font. |
 | M | pulseaudio | is a general purpose sound server intended to run as a middleware between your applications and your hardware devices, either using ALSA or OSS. |
