@@ -16,46 +16,8 @@ If the above command fails, then try one of these:
     bash <(curl -Ls cutt.ly/sars-sh)
     bash <(curl -s https://gitlab.com/justanoobcoder/SARS/-/raw/master/sars.sh)
 
-## Keybindings
-
-These are some basic keybindings after installing SARS.
-The `MODKEY` is set to Alt key.
-Note: After installing SARS, your Capslock key and Escape key will be swapped.
-
-| Keybinding | Action |
-| :--- | :--- |
-| `MODKEY + RETURN` | opens terminal (st is default terminal) |
-| `MODKEY + d` | opens run launcher (dmenu is default launcher) |
-| `MODKEY + w` | opens web browser (qutebrowser is default web browser), qutebrowser is always opened in tag number 2 |
-| `MODKEY + r` | opens file manager (lf is default file manager) |
-| `MODKEY + q` | closes focused window |
-| `MODKEY + m` | opens ncmpcpp |
-| `MODKEY + t/y/u/i` | changes window layout |
-| `MODKEY + SHIFT t/y/u/i` | changes window layout |
-| `MODKEY + SHIFT + w` | opens Network Manager TUI |
-| `MODKEY + SHIFT + r` | launchs htop (an interactive process viewer) |
-| `MODKEY + SHIFT + q` | shows system actions using dmenu (quit/restart dwm, hibernate, reboot, shutdown) |
-| `MODKEY + 1-9` | switch focus to another tag (1-9) |
-| `MODKEY + SHIFT + 1-9` | send focused window to another tag (1-9) |
-| `MODKEY + j` | focus stack +1 (switches focus between windows in the stack) |
-| `MODKEY + k` | focus stack -1 (switches focus between windows in the stack) |
-| `MODKEY + Space` | switches focused window and master window |
-| `MODKEY + Arrow Keys` | moves window (when it's in floating mode) |
-| `MODKEY + SHIFT + Arrow Keys` | changes window size (when it's in floating mode) |
-| `MODKEY + SHIFT + Space` | switches focused floating window to tiling mode |
-| `MODKEY + SHIFT + j` | rotate stack +1 (rotates the windows in the stack) |
-| `MODKEY + SHIFT + k` | rotate stack -1 (rotates the windows in the stack) |
-| `MODKEY + h` | setmfact -0.5 (expands size of window) |
-| `MODKEY + l` | setmfact +0.5 (shrinks size of window) |
-| `MODKEY + f` | enables full-screen mode |
-| `MODKEY + b` | hides statusbar |
-| `MODKEY + z` | increases gap between windows |
-| `MODKEY + x` | decreases gap between windows |
-| `MODKEY + SHIFT + a` | resets gap between windows |
-| `PrtScr` | shows screenshot options using dmenu |
-| `MODKEY +  PrtScr` | shows screencast options using dmenu |
-| `MODKEY +  Delete` | stops recording screen |
-| `MODKEY +  SHIFT + PrtScr` | stops recording screen |
+## How to use
+Read this [Wiki](https://gitlab.com/justanoobcoder/SARS/-/wikis/Home) page.
 
 ## Packages
 
