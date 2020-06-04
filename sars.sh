@@ -151,6 +151,16 @@ systembeepoff() {
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf 
 }
 
+touchpad() {
+    dialog --yes-label "Yes" --no-label "No" --yesno "Is your machine a laptop with touchpad?" 5 45 || return
+    echo 'Section "InputClass"
+    Identifier "devname"
+    Driver "libinput"
+
+	Option "Tapping" "on"
+EndSection'
+}
+
 createdirs() {
     cd "/home/$username"
     sudo -u "$username" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/{Wallpapers,Screenshots}}
