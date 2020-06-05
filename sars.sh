@@ -163,7 +163,7 @@ EndSection'
 
 createdirs() {
     cd "/home/$username"
-    sudo -u "$username" mkdir -p user/{Downloads,Documents,Music,Videos/ScreenCaptures,Pictures/{Wallpapers,Screenshots}}
+    sudo -u "$username" mkdir -p user/{downloads,documents,music,videos/screencast,pictures/{wallpapers,screenshots}}
 }
 
 finalize(){ 
@@ -189,7 +189,7 @@ main() {
     [ "$user_exist" != "true" ] && { adduserandpass || error "Error adding username and/or password."; }
 
     # Create repository directory
-    repodir="/home/$username/user/Workspace/repo" && mkdir -p "$repodir" && chown -R "$username":"$username" $(dirname "$repodir")
+    repodir="/home/$username/user/workspace/repo" && mkdir -p "$repodir" && chown -R "$username":"$username" $(dirname "$repodir")
 
     # Refresh Arch keyrings.
     refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
