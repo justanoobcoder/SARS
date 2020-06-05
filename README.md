@@ -31,6 +31,7 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | arandr | is a UI for screen adjustment. |
 | M | fzf | is command-line fuzzy finder. |
 | M | picom | is for transparency and removing screen-tearing. |
+| M | highlight | is a fast and flexible source code highlighter (CLI version). |
 | M | xorg-xprop | is a tool for detecting window properties. |
 | M | dosfstools | allows your computer to access dos-like filesystems. |
 | M | libnotify | allows desktop notifications. |
