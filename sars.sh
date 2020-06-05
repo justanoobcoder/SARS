@@ -189,7 +189,7 @@ main() {
     [ "$user_exist" != "true" ] && { adduserandpass || error "Error adding username and/or password."; }
 
     # Create repository directory
-    repodir="/home/$username/user/workspace/repo" && mkdir -p "$repodir" && chown -R "$username":"$username" $(dirname "$repodir")
+    repodir="/home/$username/user/works/repo" && mkdir -p "$repodir" && chown -R "$username":"$username" $(dirname "$repodir")
 
     # Refresh Arch keyrings.
     refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
