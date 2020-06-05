@@ -88,5 +88,4 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | Z | https://gitlab.com/justanoobcoder/st-syaoran/-/archive/master/st-syaoran-master.zip | is a patched st (suckless/simple terminal) build. |
 | Z | https://gitlab.com/justanoobcoder/dwmblocks-syaoran/-/archive/master/dwmblocks-syaoran-master.zip | is dwm clickable status bar. |
 | Z | https://gitlab.com/justanoobcoder/dmenu-syaoran/-/archive/master/dmenu-syaoran-master.zip | is a fast and lightweight dynamic menu for X. |
-| Z | https://gitlab.com/justanoobcoder/scrcast/-/archive/master/scrcast-master.zip | is a simple screenshot and screencast script. |
 | Z | https://gitlab.com/justanoobcoder/srfetch/-/archive/master/srfetch-master.zip | is a modified neofetch script. |
