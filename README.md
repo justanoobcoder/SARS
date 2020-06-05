@@ -44,7 +44,8 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | maim | is utility to take a screenshot using imlib2. |
 | M | gnome-keyring | serves as the system keyring. |
 | M | xdotool | is command-line X11 automation tool. |
-| M | neovim | a tidier vim with some useful features |
+| M | neovim | a tidier vim with some useful features. |
+| M | xcape | configures modifier keys to act as other keys when pressed and released on their own. |
 | M | mpd | is a lightweight music daemon. |
 | M | mpc | is a terminal interface for mpd. |
 | M | mpv | is the patrician's choice video player. |
