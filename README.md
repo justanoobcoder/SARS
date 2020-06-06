@@ -42,9 +42,12 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | xwallpaper | sets the wallpaper. |
 | M | ffmpeg | can record and splice video and audio on the command line. |
 | M | maim | is utility to take a screenshot using imlib2. |
+| M | clang | is a C/C++/Objective C/CUDA compiler based on LLVM. |
+| M | npm | is the official package manager for node.js. |
+| M | nodejs | is a JavaScript runtime environment combined with useful libraries. |
 | M | gnome-keyring | serves as the system keyring. |
 | M | xdotool | is command-line X11 automation tool. |
-| M | neovim | a tidier vim with some useful features. |
+| M | neovim | is a tidier vim with some useful features. |
 | M | xcape | configures modifier keys to act as other keys when pressed and released on their own. |
 | M | mpd | is a lightweight music daemon. |
 | M | mpc | is a terminal interface for mpd. |
@@ -76,11 +79,11 @@ Packages with a "M" are from Arch's main repository. Packages with an "A" are fr
 | M | ttf-liberation | is a font. |
 | M | ttf-font-awesome | is for awesome icons. |
 | M | noto-fonts | is google noto font. |
-| M | adobe-source-han-sans-kr-fonts | is Korean OpenType/CFF font. | 
-| M | adobe-source-han-sans-jp-fonts | is Japanese OpenType/CFF font. | 
-| M | adobe-source-han-sans-cn-fonts | is Simplified Chinese OpenType/CFF Sans font. | 
-| M | adobe-source-han-sans-tw-fonts | is Traditional Chinese OpenType/CFF Sans font. | 
-| M | adobe-source-han-serif-cn-fonts | is Simplified Chinese OpenType/CFF Serif font. | 
+| M | adobe-source-han-sans-kr-fonts | is Korean OpenType/CFF font. |
+| M | adobe-source-han-sans-jp-fonts | is Japanese OpenType/CFF font. |
+| M | adobe-source-han-sans-cn-fonts | is Simplified Chinese OpenType/CFF Sans font. |
+| M | adobe-source-han-sans-tw-fonts | is Traditional Chinese OpenType/CFF Sans font. |
+| M | adobe-source-han-serif-cn-fonts | is Simplified Chinese OpenType/CFF Serif font. |
 | M | adobe-source-han-serif-tw-fonts | is Traditional Chinese OpenType/CFF Serif font. |
 | A | ibus-bamboo | is a Vietnamese IME for ibus. |
 | A | lf | is a terminal file manager inspired by ranger written in Go. |
