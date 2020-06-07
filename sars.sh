@@ -23,12 +23,12 @@ pacmaninstall() {
     pacman -S "$1" --noconfirm --needed >/dev/null 2>&1
 }
 
-welcomemsg() { 
+welcomemsg() {
     dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script is based on Luke Smith's LARBS.\\nThis script will automatically install and setup a fully-featured Arch linux desktop, which I use as my main machine." 10 60
-    dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). So if you use other WM or DE then choose < Exit > to exit this script." 8 80 || { clear; exit; }
+    dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). Alsa it will overwrite all your config files, so if you don't want to continue then choose < Exit > to exit this script." 8 80 || { clear; exit; }
 }
 
-getuserandpass() { 
+getuserandpass() {
     username=$(dialog --inputbox "Enter a name for the user account. You can enter a user name that already exists or doesn't exist yet. It will create a new user if that user doesn't exist." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
     while ! echo "$username" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
         username=$(dialog --no-cancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _" 10 60 3>&1 1>&2 2>&3 3>&1)
@@ -43,11 +43,11 @@ getuserandpass() {
     done ; }
 }
 
-preinstallmsg() { 
+preinstallmsg() {
     dialog --title "Note" --yes-label "Next" --no-label "Exit" --yesno "From now on, the installation will be automated, it won't ask for any input so you can sit back, have some coffee and relax.\\n\\nIt will take some time, but when done, you can relax even more with your complete system.\\n\\nNow just press < Next > and the system will begin installation!" 13 60 || { clear; exit; }
 }
 
-adduserandpass() { 
+adduserandpass() {
     dialog --infobox "Adding user \"$username\"..." 4 50
     useradd -m -G wheel,audio,video,optical,storage -s /bin/bash "$username" >/dev/null 2>&1 ||
     usermod -aG wheel,audio,video,optical,storage "$username" && mkdir -p /home/"$username" && chown "$username":"$username" /home/"$username"
@@ -79,7 +79,7 @@ gitmakeinstall() {
     cd "$dir" || exit
     make >/dev/null 2>&1
     make install >/dev/null 2>&1
-    cd /tmp || return 
+    cd /tmp || return
 }
 
 zipmakeinstall() {
@@ -93,7 +93,7 @@ zipmakeinstall() {
     cd "$progname" || exit
     make >/dev/null 2>&1
     make install >/dev/null 2>&1
-    cd /tmp || return 
+    cd /tmp || return
 }
 
 manualinstall() {
@@ -105,7 +105,7 @@ manualinstall() {
     sudo -u "$username" tar -xvf "$1".tar.gz >/dev/null 2>&1 &&
     cd "$1" &&
     sudo -u "$username" makepkg --noconfirm -si >/dev/null 2>&1
-    cd /tmp || return) 
+    cd /tmp || return)
 }
 
 aurinstall() {
@@ -114,13 +114,13 @@ aurinstall() {
     sudo -u "$username" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
 }
 
-pipinstall() { 
+pipinstall() {
     dialog --title "SARS Installation" --infobox "Installing the Python package \`$1\` ($n of $total). $1 $2" 5 70
     command -v pip || pacmaninstall python-pip >/dev/null 2>&1
     yes | pip install "$1"
 }
 
-installationloop() { 
+installationloop() {
     curl -Ls "$packagelist" |  eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/package.list
     total=$(wc -l < /tmp/package.list)
     aurinstalled=$(pacman -Qqm)
@@ -145,10 +145,10 @@ downloadconfig() {
     sudo -u "$username" cp -rfT "$dir" "$2"
 }
 
-systembeepoff() { 
+systembeepoff() {
     dialog --infobox "Getting rid of that retarded error beep sound..." 10 50
     rmmod pcspkr
-    echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf 
+    echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 }
 
 touchpad() {
@@ -163,11 +163,11 @@ EndSection'
 
 createdirs() {
     cd "/home/$username"
-    sudo -u "$username" mkdir -p user/{downloads,documents,music,videos/screencast,pictures/{wallpapers,screenshots},work/code}
+    sudo -u "$username" mkdir -p user/{downloads,documents,music,videos/screencast,pictures/{wallpapers,screenshots}}
 }
 
-finalize(){ 
-    dialog --title "All done!" --msgbox "Congrats! Provided there were no hidden errors, the script completed successfully and all the programs and configuration files should be in place.\\n\\nTo run the new graphical environment, log out and log back in as your new user, then run the command \"startx\" to start the graphical environment (it will start automatically in tty1)." 12 80
+finalize(){
+    dialog --title "All done!" --msgbox "Congrats! If you see this dialog then the installation gave no errors, the script completed successfully and all the programs and configuration files should be in place.\\n\\nTo run the new graphical environment, log out and log back in as your new user. Enjoy!" 12 80
 }
 
 ### MAIN FUNCTION ###
