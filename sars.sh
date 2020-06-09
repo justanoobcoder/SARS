@@ -83,10 +83,12 @@ gitmakeinstall() {
 }
 
 zipmakeinstall() {
-    progname="$(echo "$1" | awk -F'/' '{print $5}')"
+    progname="$(basename "$1")"
     dialog --title "SARS Installation" --infobox "Installing \`$progname\` ($n of $total) via a zip file from \`git\` and \`make\`. $progname $2" 5 70
     pacmaninstall unzip
-    sudo -u "$username" curl "$1" -o "$repodir/${progname}.zip" >/dev/null 2>&1
+    echo "$1" | grep github >/dev/null 2>&1 && \
+        sudo -u "$username" curl -L "$1/archive/master.zip" -o "$repodir/${progname}.zip" >/dev/null 2>&1 || \
+        sudo -u "$username" curl -L "$1/-/archive/master/${progname}-master.zip" -o "$repodir/${progname}.zip" >/dev/null 2>&1
     cd "$repodir"
     sudo -u "$username" unzip "${progname}.zip" >/dev/null 2>&1
     rm *.zip ; sudo -u "$username" mv "${progname}-master" "$progname"
