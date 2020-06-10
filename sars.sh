@@ -7,7 +7,7 @@ Run this script as user root." && exit
 
 ### VARIABLES ###
 
-config="https://gitlab.com/justanoobcoder/my-config.git"
+dotfiles="https://gitlab.com/justanoobcoder/dotfiles.git"
 packageslist="https://gitlab.com/justanoobcoder/SARS/-/raw/master/README.md"
 aurhelper="yay"
 
@@ -222,8 +222,8 @@ main() {
     dialog --title "SARS Installation" --infobox "Finally, installing \`libxft-bgra\` to enable color emoji in suckless software without crashes." 5 70
     pacman -Q libxft-bgra >/dev/null 2>&1 || yes | sudo -u "$username" $aurhelper -S libxft-bgra >/dev/null 2>&1
 
-    # Download config files and put them in home directory.
-    downloadconfig "$config" "/home/$username" master
+    # Download dot files and put them in home directory.
+    downloadconfig "$dotfiles" "/home/$username" master
 
     # Most important command! Get rid of the beep!
     systembeepoff
