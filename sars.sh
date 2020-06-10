@@ -8,7 +8,7 @@ Run this script as user root." && exit
 ### VARIABLES ###
 
 config="https://gitlab.com/justanoobcoder/my-config.git"
-packagelist="https://gitlab.com/justanoobcoder/SARS/-/raw/master/README.md"
+packageslist="https://gitlab.com/justanoobcoder/SARS/-/raw/master/README.md"
 aurhelper="yay"
 
 ### FUNCTIONS ###
@@ -123,19 +123,19 @@ pipinstall() {
 }
 
 installationloop() {
-    curl -Ls "$packagelist" |  eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/package.list
-    total=$(wc -l < /tmp/package.list)
+    curl -Ls "$packageslist" |  eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/packages.list
+    total=$(wc -l < /tmp/packages.list)
     aurinstalled=$(pacman -Qqm)
-    while IFS=, read -r tag program comment; do
+    while IFS=, read -r source program comment; do
         n=$((n+1))
-        case "$tag" in
+        case "$source" in
             "M") maininstall "$program" "$comment" ;;
             "A") aurinstall "$program" "$comment" ;;
             "G") gitmakeinstall "$program" "$comment" ;;
             "Z") zipmakeinstall "$program" "$comment" ;;
             "P") pipinstall "$program" "$comment" ;;
         esac
-    done < /tmp/package.list
+    done < /tmp/packages.list
 }
 
 downloadconfig() {
@@ -215,7 +215,7 @@ main() {
     # Install aur helper.
     manualinstall $aurhelper || error "Failed to install AUR helper."
 
-    # Install all packages in packagelist.
+    # Install all packages in packageslist.
     installationloop
 
     # Install libxft-bgra. This is important package for suckless programs like dwm or st, they will crash without it.
