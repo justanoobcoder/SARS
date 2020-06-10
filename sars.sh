@@ -236,6 +236,9 @@ main() {
     %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
     Defaults editor=/usr/bin/nvim"
 
+    # Touchpad tap to click
+    touchpad
+    
     # Create user's directories
     createdirs
 
