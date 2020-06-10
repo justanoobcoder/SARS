@@ -123,7 +123,7 @@ pipinstall() {
 }
 
 installationloop() {
-    curl -Ls "$packageslist" |  eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/packages.list
+    curl -Ls "$packageslist" | sed 's/  */ /g' | eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/packages.list
     total=$(wc -l < /tmp/packages.list)
     aurinstalled=$(pacman -Qqm)
     while IFS=, read -r source program comment; do
