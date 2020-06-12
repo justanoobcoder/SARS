@@ -65,6 +65,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M      | unrar                                               | extracts rar's.                                                                                                                                  |
 | M      | unzip                                               | unzips zips.                                                                                                                                     |
 | M      | numlockx                                            | turns on the numlock key in X11.                                                                                                                 |
+| M      | ripgrep                                             | is a search tool that combines the usability of ag with the raw speed of grep.                                                                   |
 | M      | wget                                                | is a free software package for retrieving files using HTTP, HTTPS, FTP and FTPS.                                                                 |
 | M      | openssh                                             | is a set of computer programs providing encrypted communication sessions over a computer network using the Secure Shell (SSH) protocol.          |
 | M      | xclip                                               | allows for copying and pasting from the command line.                                                                                            |
