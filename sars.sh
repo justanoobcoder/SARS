@@ -147,6 +147,21 @@ downloadconfig() {
     sudo -u "$username" cp -rfT "$dir" "$2"
 }
 
+neovim() {
+    dialog --title "Neovim" --infobox "Downloading and installing dependencies..." 4 60
+    pacmaninstall neovim
+    pacmaninstall nodejs
+    pacmaninstall npm
+    pacmaninstall python-pip
+    pip3 install pynvim
+    sudo -u "$username" npm i -g neovim
+    dialog --title "Neovim" --infobox "Downloading and installing plugins..." 4 60
+    sudo -u "$username" mv /home/$username/.config/nvim/init.vim /home/$username/.config/nvim/init.vim.tmp
+    sudo -u "$username" echo "source $HOME/.config/nvim/vim-plugins.vim" > /home/$username/.config/nvim/init.vim
+    sudo -u "$username" nvim --headless +PlugInstall +qall > /dev/null 2>&1
+    sudo -u "$username" mv /home/$username/.config/nvim/init.vim.tmp /home/$username/.config/nvim/init.vim
+}
+
 systembeepoff() {
     dialog --infobox "Getting rid of that retarded error beep sound..." 10 50
     rmmod pcspkr
@@ -224,6 +239,9 @@ main() {
 
     # Download dot files and put them in home directory.
     downloadconfig "$dotfiles" "/home/$username" master
+
+    # Download and configure neovim
+    neovim
 
     # Most important command! Get rid of the beep!
     systembeepoff
