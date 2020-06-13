@@ -148,6 +148,7 @@ downloadconfig() {
 }
 
 neovim() {
+    # Dependencies
     dialog --title "Neovim" --infobox "Downloading and installing dependencies..." 4 50
     pacmaninstall neovim
     pacmaninstall nodejs
@@ -155,12 +156,35 @@ neovim() {
     pacmaninstall python-pip
     pip3 install pynvim >/dev/null 2>&1
     sudo -u "$username" npm i -g neovim >/dev/null 2>&1
+    # Plugins
     dialog --title "Neovim" --infobox "Downloading and installing plugins..." 4 50
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim /home/$username/.config/nvim/init.vim.tmp
     echo "source ~/.config/nvim/vim-plugins.vim" > /home/$username/.config/nvim/init.vim
     chown -R "$username":"$username" /home/$username/.config/nvim/init.vim
     sudo -u "$username" nvim --headless +PlugInstall +qall > /dev/null 2>&1
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim.tmp /home/$username/.config/nvim/init.vim
+    # COC extensions
+    dialog --title "Neovim" --infobox "Downloading and installing COC's extensions..." 4 50
+    mkdir -p /home/$username/.config/coc/extensions
+    sudo -u "$username" touch /home/$username/.config/coc/extensions/package.json
+    echo '{"dependencies":{}}' > /home/$username/.config/coc/extensions/package.json
+    npm install coc-clangd \
+                coc-snippets \
+                coc-actions \
+                coc-lists \
+                coc-emmet \
+                coc-floaterm \
+                coc-html \
+                coc-css \
+                coc-cssmodules \
+                coc-explorer \
+                coc-prettier \
+                coc-vimlsp \
+                coc-yank \
+                coc-json \
+                --global-style --ignore-scripts \
+                --no-bin-links --no-package-lock \
+                --only=prod
 }
 
 systembeepoff() {
