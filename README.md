@@ -43,6 +43,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M      | pcmanfm                                             | is an extremely fast and lightweight file manager.                                                                                               |
 | M      | xwallpaper                                          | sets the wallpaper.                                                                                                                              |
 | M      | ffmpeg                                              | can record and splice video and audio on the command line.                                                                                       |
+| M      | alacritty                                           | is a cross-platform, GPU-accelerated terminal emulator.                                                                                          |
 | M      | maim                                                | is utility to take a screenshot using imlib2.                                                                                                    |
 | M      | clang                                               | is a C/C++/Objective C/CUDA compiler based on LLVM.                                                                                              |
 | M      | npm                                                 | is the official package manager for node.js.                                                                                                     |
