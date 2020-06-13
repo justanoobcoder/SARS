@@ -72,6 +72,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M      | xclip                                               | allows for copying and pasting from the command line.                                                                                            |
 | M      | youtube-dl                                          | can download any YouTube video (or playlist or channel) when given the link.                                                                     |
 | M      | xorg-xbacklight                                     | enables changing screen brightness levels.                                                                                                       |
+| M      | python-pip                                          | is PyPA recommended tool for installing Python packages.                                                                                         |
 | M      | zsh                                                 | is a powerful shell that operates as both an interactive shell and as a scripting language interpreter.                                          |
 | M      | zsh-completions                                     | for additional completion definitions.                                                                                                           |
 | M      | zsh-syntax-highlighting                             | provides syntax highlighting in the shell.                                                                                                       |
