@@ -166,8 +166,8 @@ neovim() {
     # COC extensions
     dialog --title "Neovim" --infobox "Downloading and installing COC's extensions..." 4 50
     mkdir -p /home/$username/.config/coc/extensions
-    sudo -u "$username" touch /home/$username/.config/coc/extensions/package.json
     echo '{"dependencies":{}}' > /home/$username/.config/coc/extensions/package.json
+    chown -R "$username":"$username" /home/$username/.config/coc/extensions/package.json
     npm install coc-clangd \
                 coc-snippets \
                 coc-actions \
@@ -181,10 +181,10 @@ neovim() {
                 coc-prettier \
                 coc-vimlsp \
                 coc-yank \
-                coc-json \
-                --global-style --ignore-scripts \
-                --no-bin-links --no-package-lock \
-                --only=prod
+                coc-json 
+                #--global-style --ignore-scripts \
+                #--no-bin-links --no-package-lock \
+                #--only=prod
 }
 
 systembeepoff() {
