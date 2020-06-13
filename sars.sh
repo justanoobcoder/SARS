@@ -148,14 +148,14 @@ downloadconfig() {
 }
 
 neovim() {
-    dialog --title "Neovim" --infobox "Downloading and installing dependencies..." 4 60
+    dialog --title "Neovim" --infobox "Downloading and installing dependencies..." 4 50
     pacmaninstall neovim
     pacmaninstall nodejs
     pacmaninstall npm
     pacmaninstall python-pip
     pip3 install pynvim
     sudo -u "$username" npm i -g neovim
-    dialog --title "Neovim" --infobox "Downloading and installing plugins..." 4 60
+    dialog --title "Neovim" --infobox "Downloading and installing plugins..." 4 50
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim /home/$username/.config/nvim/init.vim.tmp
     sudo -u "$username" echo "source $HOME/.config/nvim/vim-plugins.vim" > /home/$username/.config/nvim/init.vim
     sudo -u "$username" nvim --headless +PlugInstall +qall > /dev/null 2>&1
