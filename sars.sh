@@ -153,11 +153,11 @@ neovim() {
     pacmaninstall nodejs
     pacmaninstall npm
     pacmaninstall python-pip
-    pip3 install pynvim
-    sudo -u "$username" npm i -g neovim
+    pip3 install pynvim >/dev/null 2>&1
+    sudo -u "$username" npm i -g neovim >/dev/null 2>&1
     dialog --title "Neovim" --infobox "Downloading and installing plugins..." 4 50
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim /home/$username/.config/nvim/init.vim.tmp
-    sudo -u "$username" echo "source $HOME/.config/nvim/vim-plugins.vim" > /home/$username/.config/nvim/init.vim
+    sudo -u "$username" echo "source ~/.config/nvim/vim-plugins.vim" > /home/$username/.config/nvim/init.vim
     sudo -u "$username" nvim --headless +PlugInstall +qall > /dev/null 2>&1
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim.tmp /home/$username/.config/nvim/init.vim
 }
