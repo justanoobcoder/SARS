@@ -157,7 +157,8 @@ neovim() {
     sudo -u "$username" npm i -g neovim >/dev/null 2>&1
     dialog --title "Neovim" --infobox "Downloading and installing plugins..." 4 50
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim /home/$username/.config/nvim/init.vim.tmp
-    sudo -u "$username" echo "source ~/.config/nvim/vim-plugins.vim" > /home/$username/.config/nvim/init.vim
+    echo "source ~/.config/nvim/vim-plugins.vim" > /home/$username/.config/nvim/init.vim
+    chown -R "$username":"$username" /home/$username/.config/nvim/init.vim
     sudo -u "$username" nvim --headless +PlugInstall +qall > /dev/null 2>&1
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim.tmp /home/$username/.config/nvim/init.vim
 }
