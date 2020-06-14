@@ -53,7 +53,7 @@ userchoice() {
         "2")
             while IFS=, read -r source program comment; do
                 n=$((n+1))
-                [ "${source#?}" = "*" ] && sed -n "${n}p" /tmp/temp.list >> /tmp/packages.list
+                [ "${source#?}" = "@" ] && sed -n "${n}p" /tmp/temp.list >> /tmp/packages.list
             done < /tmp/temp.list
             unset n
             ;;
@@ -62,7 +62,7 @@ userchoice() {
             [ -f /tmp/options.list ] && rm /tmp/options.list
             while IFS=, read -r source program comment; do
                 n=$((n+1))
-                [ "${source#?}" = "*" ] && echo "$n $program on" >> /tmp/options.list || echo "$n $program off" >> /tmp/options.list
+                [ "${source#?}" = "@" ] && echo "$n $program on" >> /tmp/options.list || echo "$n $program off" >> /tmp/options.list
             done < /tmp/temp.list
             checklist=(dialog --separate-output --checklist "Select packages that you want to install.\nChoose <Cancel> to go back." 0 0 0)
             [ -z "$checklist" ] && userchoice
