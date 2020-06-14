@@ -163,28 +163,6 @@ neovim() {
     chown -R "$username":"$username" /home/$username/.config/nvim/init.vim
     sudo -u "$username" nvim --headless +PlugInstall +qall > /dev/null 2>&1
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim.tmp /home/$username/.config/nvim/init.vim
-    # COC extensions
-    dialog --title "Neovim" --infobox "Downloading and installing COC's extensions..." 4 50
-    mkdir -p /home/$username/.config/coc/extensions
-    sudo -u "$username" touch /home/$username/.config/coc/extensions/package.json
-    echo '{"dependencies":{}}' > /home/$username/.config/coc/extensions/package.json
-    npm install coc-clangd \
-                coc-snippets \
-                coc-actions \
-                coc-lists \
-                coc-emmet \
-                coc-floaterm \
-                coc-html \
-                coc-css \
-                coc-cssmodules \
-                coc-explorer \
-                coc-prettier \
-                coc-vimlsp \
-                coc-yank \
-                coc-json \
-                --global-style --ignore-scripts \
-                --no-bin-links --no-package-lock \
-                --only=prod
 }
 
 systembeepoff() {
