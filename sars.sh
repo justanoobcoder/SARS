@@ -25,7 +25,7 @@ pacmaninstall() {
 
 welcomemsg() {
     dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script is based on Luke Smith's LARBS.\\nThis script will automatically install and setup a fully-featured Arch linux desktop, which I use as my main machine." 10 60
-    dialog --title "Attention" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). Alsa it will overwrite all your config files, so if you don't want to continue then choose < Exit > to exit this script." 8 80 || { clear; exit; }
+    dialog --title "Attention[!]" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). Alsa it will overwrite all your config files, so if you don't want to continue then choose < Exit > to exit this script." 8 80 || { clear; exit; }
 }
 
 getuserandpass() {
@@ -41,6 +41,40 @@ getuserandpass() {
         pass1=$(dialog --no-cancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
         pass2=$(dialog --no-cancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
     done ; }
+}
+
+userchoice() {
+    curl -Ls "$packageslist" | sed 's/  */ /g' | eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/temp.list
+    choice="$(dialog --title "Option" --menu "Choose one of these options:" 0 0 0 1 "Full installation" 2 "Minimal installation" 3 "Custom installation" 3>&1 1>&2 2>&3 3>&1)"
+    [ -f /tmp/packages.list ] && rm /tmp/packages.list
+    case "$choice" in
+        "1")
+            cp /tmp/temp.list /tmp/packages.list ;;
+        "2")
+            while IFS=, read -r source; do
+                n=$((n+1))
+                [ "${source#?}" = "*" ] && sed -n "${n}p" /tmp/temp.list >> /tmp/packages.list
+            done < /tmp/temp.list
+            unset n
+            ;;
+        "3")
+            dialog --title "Attention[!]" --msgbox "There are some packages which are selected by default. Those are important packages for SARS. DO NOT uncheck them!\nUse arrow keys to move the pointer. Press Space bar to check/uncheck package." 10 50
+            [ -f /tmp/options.list ] && rm /tmp/options.list
+            while IFS=, read -r source program; do
+                n=$((n+1))
+                [ "${source#?}" = "*" ] && echo "$n $program on" >> /tmp/options.list || echo "$n $program off" >> /tmp/options.list
+            done < /tmp/temp.list
+            checklist=(dialog --separate-output --checklist "Select packages that you want to install.\nChoose <Cancel> to go back." 0 0 0)
+            [ -z "$checklist" ] && userchoice
+            options=(`cat /tmp/options.list`)
+            selections=$("${checklist[@]}" "${options[@]}" 3>&1 1>&2 2>&3 3>&1)
+            for selection in $selections
+            do
+                sed -n "${selection}p" /tmp/temp.list >> /tmp/packages.list
+            done
+            unset n
+            ;;
+    esac
 }
 
 preinstallmsg() {
@@ -123,12 +157,11 @@ pipinstall() {
 }
 
 installationloop() {
-    curl -Ls "$packageslist" | sed 's/  */ /g' | eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/packages.list
     total=$(wc -l < /tmp/packages.list)
     aurinstalled=$(pacman -Qqm)
     while IFS=, read -r source program comment; do
         n=$((n+1))
-        case "$source" in
+        case "${source:0:1}" in
             "M") maininstall "$program" "$comment" ;;
             "A") aurinstall "$program" "$comment" ;;
             "G") gitmakeinstall "$program" "$comment" ;;
@@ -201,6 +234,9 @@ main() {
 
     # Get and verify username and password.
     getuserandpass || error "User exited."
+
+    # Get user's install option
+    userchoice || error "User exited."
 
     # Last chance for user to back out before install.
     preinstallmsg || error "User exited."
