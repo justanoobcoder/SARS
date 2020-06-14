@@ -51,7 +51,7 @@ userchoice() {
         "1")
             cp /tmp/temp.list /tmp/packages.list ;;
         "2")
-            while IFS=, read -r source; do
+            while IFS=, read -r source program comment; do
                 n=$((n+1))
                 [ "${source#?}" = "*" ] && sed -n "${n}p" /tmp/temp.list >> /tmp/packages.list
             done < /tmp/temp.list
@@ -60,7 +60,7 @@ userchoice() {
         "3")
             dialog --title "Attention[!]" --msgbox "There are some packages which are selected by default. Those are important packages for SARS. DO NOT uncheck them!\nUse arrow keys to move the pointer. Press Space bar to check/uncheck package." 10 50
             [ -f /tmp/options.list ] && rm /tmp/options.list
-            while IFS=, read -r source program; do
+            while IFS=, read -r source program comment; do
                 n=$((n+1))
                 [ "${source#?}" = "*" ] && echo "$n $program on" >> /tmp/options.list || echo "$n $program off" >> /tmp/options.list
             done < /tmp/temp.list
