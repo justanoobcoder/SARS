@@ -45,7 +45,7 @@ getuserandpass() {
 
 userchoice() {
     curl -Ls "$packageslist" | sed 's/  */ /g' | eval grep "\|" | sed '1,2d;s/ | /,/g;s/| //g;s/ |//g' > /tmp/temp.list
-    choice="$(dialog --title "Option" --menu "Choose one of these options:" 0 0 0 1 "Full installation" 2 "Minimal installation" 3 "Custom installation" 3>&1 1>&2 2>&3 3>&1)"
+    choice="$(dialog --title "Option" --menu "Choose one of these options:" 0 0 0 1 "Full installation (recommend)" 2 "Minimal installation" 3 "Custom installation" 3>&1 1>&2 2>&3 3>&1)"
     [ -f /tmp/packages.list ] && rm /tmp/packages.list
     case "$choice" in
         "1")
