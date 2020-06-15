@@ -216,7 +216,7 @@ EndSection'
 
 createdirs() {
     cd "/home/$username"
-    sudo -u "$username" mkdir -p user/{downloads,documents,music,videos/screencast,pictures/{wallpapers,screenshots}}
+    sudo -u "$username" mkdir -p user/{downloads,documents,music,videos/screencast,pictures/screenshots}
 }
 
 finalize(){
