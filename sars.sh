@@ -286,6 +286,8 @@ main() {
     systembeepoff
 
     # Make zsh the default shell for the user.
+    [ -d /etc/zsh ] || mkdir -p /etc/zsh
+    echo 'export ZDOTDIR="$HOME/.config/zsh"' > /etc/zsh/zshenv
     chsh -s /bin/zsh $username >/dev/null 2>&1
     sudo -u "$username" mkdir -p "/home/$username/.cache/zsh/"
 
