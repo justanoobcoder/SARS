@@ -27,7 +27,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 
 | Source | Package name                                        | Comment                                                                                                                                          |
 | :----- | :-------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
-| M@     | xorg                                                | includes Xorg server packages, packages from the xorg-apps group and fonts.                                                                      |
+| M@     | xorg                                                | is the most popular display server among Linux users.                                                                                            |
 | M@     | xorg-xinit                                          | starts the graphical server.                                                                                                                     |
 | M      | ttf-linux-libertine                                 | provides the sans and serif fonts.                                                                                                               |
 | M      | arandr                                              | is a UI for screen adjustment.                                                                                                                   |
