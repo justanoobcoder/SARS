@@ -24,7 +24,7 @@ pacmaninstall() {
 }
 
 welcomemsg() {
-    dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script is based on Luke Smith's LARBS.\\nThis script will automatically install and setup a fully-featured Arch linux desktop, which I use as my main machine." 10 60
+    dialog --title "Welcome!" --msgbox "Welcome to SARS - Syaoran's Arch Ricing Script!\\n\\nThis script is based on Luke Smith's LARBS.\\nThis script will automatically install and setup a full-featured Arch linux desktop, which I use as my main machine." 10 60
     dialog --title "Attention[!]" --yes-label "Next" --no-label "Exit" --yesno "This script will install and set up dwm-syaoran (my suckless's dwm build). Alsa it will overwrite all your config files, so if you don't want to continue then choose < Exit > to exit this script." 8 80 || { clear; exit; }
 }
 
