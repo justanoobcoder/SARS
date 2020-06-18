@@ -250,7 +250,7 @@ main() {
     # Refresh Arch keyrings.
     refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
 
-    dialog --title "SARS Installation" --infobox "Installing \`basedevel\` and \`git\` for installing other software required for the installation of other programs." 5 70
+    dialog --title "SARS Installation" --infobox "Installing \`base-devel\` and \`git\` for installing other software required for the installation of other programs." 5 70
     pacmaninstall curl
     pacmaninstall base-devel
     pacmaninstall git
@@ -292,8 +292,8 @@ main() {
     sudo -u "$username" mkdir -p "/home/$username/.cache/zsh/"
 
     appendsudoers "
-    %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
-    Defaults editor=/usr/bin/nvim"
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
+Defaults editor=/usr/bin/nvim"
 
     # Start/Restart pulseaudio
     pidof pulseaudio >/dev/null 2>&1 && killall pulseaudio; sudo -u "$name" pulseaudio --start
