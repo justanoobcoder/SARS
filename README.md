@@ -16,10 +16,6 @@ If the above command fails, then try one of these:
     bash <(curl -Ls cutt.ly/sars-sh)
     bash <(curl -s https://gitlab.com/justanoobcoder/SARS/-/raw/master/sars.sh)
 
-## How to use
-
-Read this [Wiki](https://gitlab.com/justanoobcoder/SARS/-/wikis/Home) page.
-
 ## Packages
 
 Packages with a "M" are from Arch's main repository. Packages with an "A" are from AUR. Packages with a "G" are from git repository (github or gitlab), it will clone the repository then use `make` to install. Packages with a "Z" are from git repository (github or gilab), it will download the zip file, unzip it and use `make` to install. If you want to install from git repository, "Z" is recommended because some git repos are quite heavy, download a zip file is way faster and sometimes git clone is so freaking slow. Packages with a "P" are from python pip.<br>
