@@ -211,7 +211,7 @@ touchpad() {
     Driver "libinput"
 
 	Option "Tapping" "on"
-EndSection'
+EndSection' > /etc/X11/xorg.conf.d/30-touchpad.conf
 }
 
 createdirs() {
