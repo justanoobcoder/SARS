@@ -298,6 +298,9 @@ Defaults editor=/usr/bin/nvim"
     # Start/Restart pulseaudio
     pidof pulseaudio >/dev/null 2>&1 && killall pulseaudio; sudo -u "$name" pulseaudio --start
 
+    # Time
+    timedatectl set-ntp true
+
     # Touchpad tap to click
     touchpad
 
