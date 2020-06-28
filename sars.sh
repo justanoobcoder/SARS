@@ -214,6 +214,11 @@ touchpad() {
 EndSection' > /etc/X11/xorg.conf.d/30-touchpad.conf
 }
 
+synctime() {
+    dialog --yes-label "Yes" --no-label "No" --yesno "Are you dualbooting Arch with Windows?" 5 45 || return
+    timedatectl set-local-rtc 1 --adjust-system-clock
+}
+
 createdirs() {
     cd "/home/$username"
     sudo -u "$username" mkdir -p user/{downloads,documents,music,videos/screencast,pictures/screenshots}
@@ -303,6 +308,9 @@ Defaults editor=/usr/bin/nvim"
 
     # Touchpad tap to click
     touchpad
+
+    # Sync time with Windows if dualboot
+    synctime
 
     # Create user's directories
     createdirs
