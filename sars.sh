@@ -221,7 +221,7 @@ synctime() {
 
 createdirs() {
     cd "/home/$username"
-    sudo -u "$username" mkdir -p user/{downloads,documents,music,videos/screencast,pictures/screenshots}
+    sudo -u "$username" mkdir -p .config/gtk-2.0 user/{downloads,documents,music,videos/screencast,pictures/screenshots}
 }
 
 finalize(){
