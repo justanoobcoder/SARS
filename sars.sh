@@ -295,6 +295,7 @@ main() {
     echo 'export ZDOTDIR="$HOME/.config/zsh"' > /etc/zsh/zshenv
     chsh -s /bin/zsh $username >/dev/null 2>&1
     sudo -u "$username" mkdir -p "/home/$username/.cache/zsh/"
+    rm "/home/$username/.bash*"
 
     appendsudoers "
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/systemctl hibernate,/usr/bin/systemctl suspend-then-hibernate,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman,/usr/bin/systemctl restart NetworkManager,/usr/bin/yay,/usr/bin/make
@@ -314,6 +315,9 @@ Defaults editor=/usr/bin/nvim"
 
     # Create user's directories
     createdirs
+
+    # Remove go folder in home
+    [ -d "/home/$username/go" ] && rm "/home/$username/go"
 
     # Last message! Install complete!
     finalize
