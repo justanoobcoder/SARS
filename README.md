@@ -45,6 +45,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M@     | nodejs                                              | is a JavaScript runtime environment combined with useful libraries.                                                                              |
 | M@     | gnome-keyring                                       | serves as the system keyring.                                                                                                                    |
 | M@     | xdotool                                             | is command-line X11 automation tool.                                                                                                             |
+| M@     | bc                                                  | is an arbitrary precision calculator language.                                                                                                   |
 | M@     | neovim                                              | is a tidier vim with some useful features.                                                                                                       |
 | M@     | xcape                                               | configures modifier keys to act as other keys when pressed and released on their own.                                                            |
 | M@     | mpd                                                 | is a lightweight music daemon.                                                                                                                   |
