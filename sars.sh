@@ -310,6 +310,9 @@ Defaults editor=/usr/bin/nvim"
     # Touchpad tap to click
     touchpad
 
+    # Customize grub
+    sed 's/.*COLOR_NORMAL.*/export GRUB_COLOR_NORMAL="cyan\/black"/g;s/.*COLOR_HIGHLIGHT.*/export GRUB_COLOR_HIGHLIGHT="light-cyan\/light-blue"/g' /etc/default/grub
+
     # Sync time with Windows if dualboot
     synctime
 
