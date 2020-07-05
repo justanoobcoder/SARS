@@ -51,6 +51,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M@     | mpd                                                 | is a lightweight music daemon.                                                                                                                   |
 | M      | mpc                                                 | is a terminal interface for mpd.                                                                                                                 |
 | M      | mpv                                                 | is the patrician's choice video player.                                                                                                          |
+| M      | screenkey                                           | is a screencast tool to display your keys on the screen.                                                                                         |
 | M@     | man-db                                              | lets you read man pages of programs.                                                                                                             |
 | M@     | pacman-contrib                                      | contains contributed scripts and tools for pacman systems.                                                                                       |
 | M      | calcurse                                            | is a lightweight terminal-based calendar.                                                                                                        |
