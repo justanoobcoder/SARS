@@ -134,7 +134,7 @@ zipmakeinstall() {
 
 manualinstall() {
     [ -f "/usr/bin/$1" ] || (
-    dialog --infobox "Installing \"$1\", an AUR helper..." 4 50
+    dialog --title "SARS Installation" --infobox "Installing \`$1\`, an AUR helper..." 4 50
     cd /tmp || exit
     rm -rf /tmp/"$1"*
     curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/"$1".tar.gz &&
@@ -212,11 +212,6 @@ touchpad() {
 
 	Option "Tapping" "on"
 EndSection' > /etc/X11/xorg.conf.d/30-touchpad.conf
-}
-
-synctime() {
-    dialog --yes-label "Yes" --no-label "No" --yesno "Are you dualbooting Arch with Windows?" 5 45 || return
-    timedatectl set-local-rtc 1 --adjust-system-clock
 }
 
 createdirs() {
@@ -311,10 +306,9 @@ Defaults editor=/usr/bin/nvim"
     touchpad
 
     # Customize grub
+    dialog --title "SARS Installation" --infobox "\nCustomizing grub..." 5 30
     sed -i 's/.*COLOR_NORMAL.*/export GRUB_COLOR_NORMAL="cyan\/black"/g;s/.*COLOR_HIGHLIGHT.*/export GRUB_COLOR_HIGHLIGHT="light-cyan\/light-blue"/g' /etc/default/grub
-
-    # Sync time with Windows if dualboot
-    synctime
+    grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
 
     # Create user's directories
     createdirs
