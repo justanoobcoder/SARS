@@ -307,7 +307,7 @@ Defaults editor=/usr/bin/nvim"
 
     # Customize grub
     dialog --title "SARS Installation" --infobox "\nCustomizing grub..." 5 30
-    sed -i 's/.*COLOR_NORMAL.*/export GRUB_COLOR_NORMAL="cyan\/black"/g;s/.*COLOR_HIGHLIGHT.*/export GRUB_COLOR_HIGHLIGHT="light-cyan\/light-blue"/g' /etc/default/grub
+    sed -i 's/#GRUB_THEME.*/GRUB_THEME="\/home\/syaoran\/user\/documents\/grub\/themes\/Tela\/theme.txt"/g' /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
 
     # Create user's directories
