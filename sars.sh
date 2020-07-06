@@ -302,13 +302,13 @@ Defaults editor=/usr/bin/nvim"
     # Time
     timedatectl set-ntp true
 
-    # Touchpad tap to click
-    touchpad
-
     # Customize grub
     dialog --title "SARS Installation" --infobox "\nCustomizing grub..." 5 30
     sed -i 's/#GRUB_THEME.*/GRUB_THEME="\/home\/syaoran\/user\/documents\/grub\/themes\/Tela\/theme.txt"/g' /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
+
+    # Touchpad tap to click
+    touchpad
 
     # Create user's directories
     createdirs
