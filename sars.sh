@@ -219,8 +219,8 @@ createdirs() {
     sudo -u "$username" mkdir -p .config/gtk-2.0 user/{downloads,documents,music,videos/screencast,pictures/screenshots}
 }
 
-finalize(){
-    dialog --title "All done!" --msgbox "Congrats! If you see this dialog then the installation gave no errors, the script completed successfully and all the programs and configuration files should be in place.\\n\\nTo run the new graphical environment, log out and log back in as your new user. Enjoy!" 12 80
+finalmsg(){
+    dialog --title "All done!" --msgbox "Congrats! If you see this dialog then the installation gave no errors, the script completed successfully and all the programs and configuration files should be in place. Enjoy!" 12 80
 }
 
 ### MAIN FUNCTION ###
@@ -320,7 +320,10 @@ Defaults editor=/usr/bin/nvim"
     [ -d "/home/$username/go" ] && rm -rf "/home/$username/go"
 
     # Last message! Install complete!
-    finalize
+    finalmsg
+
+    # Reboot
+    dialog --title "SARS Installation" --yesno "Do you want to reboot now?" 0 0 && reboot
 
     clear
 }
