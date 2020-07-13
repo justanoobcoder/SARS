@@ -307,7 +307,7 @@ Defaults editor=/usr/bin/nvim"
 
     # Customize grub
     dialog --title "SARS Installation" --infobox "\nCustomizing grub..." 5 30
-    sed -i 's/#GRUB_THEME.*/GRUB_THEME="\/home\/syaoran\/user\/documents\/grub\/themes\/Tela\/theme.txt"/g' /etc/default/grub
+    sed -i "s/#GRUB_THEME.*/GRUB_THEME=\/home\/$username\/.local\/share\/sars\/grub\/themes\/Tela\/theme.txt/g" /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
 
     # Touchpad tap to click
