@@ -90,6 +90,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M      | adobe-source-han-serif-tw-fonts                     | is Traditional Chinese OpenType/CFF Serif font.                                                                                                  |
 | A      | ibus-bamboo                                         | is a Vietnamese IME for ibus.                                                                                                                    |
 | A      | lf                                                  | is a terminal file manager inspired by ranger written in Go.                                                                                     |
+| A@     | light-git                                           | is a program that can easily change brightness on backlight-controllers.                                                                         |
 | Z@     | https://gitlab.com/justanoobcoder/dwm-syaoran       | is a patched dwm (dynamic window manager) build.                                                                                                 |
 | Z@     | https://gitlab.com/justanoobcoder/st-syaoran        | is a patched st (suckless/simple terminal) build.                                                                                                |
 | Z@     | https://gitlab.com/justanoobcoder/dwmblocks-syaoran | is dwm clickable status bar.                                                                                                                     |
