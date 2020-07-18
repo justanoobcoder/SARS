@@ -235,6 +235,9 @@ main() {
     # Get and verify username and password.
     getuserandpass || error "User exited."
 
+    # Touchpad tap to click
+    touchpad
+
     # Get user's install option
     userchoice || error "User exited."
 
@@ -309,9 +312,6 @@ Defaults editor=/usr/bin/nvim"
     dialog --title "SARS Installation" --infobox "\nCustomizing grub..." 5 30
     sed -i "s/#GRUB_THEME.*/GRUB_THEME=\/home\/$username\/.local\/share\/sars\/grub\/themes\/Tela\/theme.txt/g" /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
-
-    # Touchpad tap to click
-    touchpad
 
     # Create user's directories
     createdirs
