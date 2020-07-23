@@ -307,6 +307,7 @@ Defaults editor=/usr/bin/nvim"
 
     # Time
     timedatectl set-ntp true
+    timedatectl set-local-rtc 1 --adjust-system-clock
 
     # Customize grub
     dialog --title "SARS Installation" --infobox "\nCustomizing grub..." 5 30
