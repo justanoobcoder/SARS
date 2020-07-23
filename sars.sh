@@ -277,9 +277,12 @@ main() {
 
     # Install libxft-bgra. This is important package for suckless programs like dwm or st, they will crash without it.
     dialog --title "SARS Installation" --infobox "Finally, installing \`libxft-bgra\` to enable color emoji in suckless software without crashes." 5 70
+    n=1
     while true
     do
         pacman -Q libxft-bgra >/dev/null 2>&1 && break || yes | sudo -u "$username" $aurhelper -S libxft-bgra >/dev/null 2>&1
+        [ $n -eq 3 ] && error "Cannot install libxft-bgra from AUR!"
+        n=$((n+1))
     done
 
     # Download dot files and put them in home directory.
