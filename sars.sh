@@ -275,6 +275,16 @@ main() {
     # Install all packages in packageslist.
     installationloop
 
+    # Install libxft-bgra. This is important package for suckless programs like dwm or st, they will crash without it.
+    dialog --title "SARS Installation" --infobox "Finally, installing \`libxft-bgra-git\` to enable color emoji in suckless software without crashes." 5 70
+    n=1
+    while true
+    do
+        pacman -Q libxft-bgra-git >/dev/null 2>&1 && break || yes | sudo -u "$username" $aurhelper -S libxft-bgra-git >/dev/null 2>&1
+        [ $n -eq 3 ] && error "Cannot install libxft-bgra-git from AUR!"
+        n=$((n+1))
+    done
+
     # Download dot files and put them in home directory.
     downloadconfig "$dotfiles" "/home/$username" master
 
@@ -311,16 +321,6 @@ Defaults editor=/usr/bin/nvim"
 
     # Remove go folder in home
     [ -d "/home/$username/go" ] && rm -rf "/home/$username/go"
-
-    # Install libxft-bgra. This is important package for suckless programs like dwm or st, they will crash without it.
-    dialog --title "SARS Installation" --infobox "Finally, installing \`libxft-bgra-git\` to enable color emoji in suckless software without crashes." 5 70
-    n=1
-    while true
-    do
-        pacman -Q libxft-bgra-git >/dev/null 2>&1 && break || yes | sudo -u "$username" $aurhelper -S libxft-bgra-git >/dev/null 2>&1
-        [ $n -eq 3 ] && error "Cannot install libxft-bgra-git from AUR!"
-        n=$((n+1))
-    done
 
     # Last message! Install complete!
     finalmsg
