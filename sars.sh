@@ -235,9 +235,6 @@ main() {
     # Get and verify username and password.
     getuserandpass || error "User exited."
 
-    # Touchpad tap to click
-    touchpad
-
     # Get user's install option
     userchoice || error "User exited."
 
@@ -321,6 +318,9 @@ Defaults editor=/usr/bin/nvim"
 
     # Remove go folder in home
     [ -d "/home/$username/go" ] && rm -rf "/home/$username/go"
+
+    # Touchpad tap to click
+    touchpad
 
     # Last message! Install complete!
     finalmsg
