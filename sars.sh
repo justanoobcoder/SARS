@@ -196,6 +196,7 @@ neovim() {
     chown -R "$username":"$username" /home/$username/.config/nvim/init.vim
     sudo -u "$username" nvim --headless +PlugInstall +qall > /dev/null 2>&1
     sudo -u "$username" mv /home/$username/.config/nvim/init.vim.tmp /home/$username/.config/nvim/init.vim
+    [ -d /home/$username/.npm ] && rm -rf /home/$username/.npm
 }
 
 systembeepoff() {
