@@ -324,6 +324,8 @@ Defaults editor=/usr/bin/nvim"
     # Touchpad tap to click
     touchpad
 
+    [ "$username" != "syaoran" ] && rm /home/$username/.local/bin/gitrestore
+
     # Last message! Install complete!
     finalmsg
 
