@@ -8,13 +8,7 @@ This is nothing to do with SARS-Cov. Syaoran's Arch Ricing Script (SARS) is a sc
 
 Log in as root user. Run the following:
 
-    bash <(curl -Ls bit.do/sars-sh)
-
-If the above command fails, then try one of these:
-
-    bash <(curl -Ls tinyurl.com/sars-sh)
-    bash <(curl -Ls cutt.ly/sars-sh)
-    bash <(curl -s https://gitlab.com/justanoobcoder/SARS/-/raw/master/sars.sh)
+    bash <(curl -Ls bit.ly/sars-sh)
 
 ## Packages
 
