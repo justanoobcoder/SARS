@@ -22,6 +22,8 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M      | ttf-linux-libertine                                 | provides the sans and serif fonts.                                                                                                               |
 | M      | arandr                                              | is a UI for screen adjustment.                                                                                                                   |
 | M@     | fzf                                                 | is command-line fuzzy finder.                                                                                                                    |
+| M@     | networkmanager                                      | is a program for providing detection and configuration for systems to automatically connect to networks.                                         |
+| M@     | network-manager-applet                              | is an applet for managing network connections.                                                                                                   |
 | M@     | picom                                               | is for transparency and removing screen-tearing.                                                                                                 |
 | M      | highlight                                           | is a fast and flexible source code highlighter (CLI version).                                                                                    |
 | M@     | xorg-xprop                                          | is a tool for detecting window properties.                                                                                                       |
