@@ -216,6 +216,7 @@ ch_shell_zsh() {
 }
 
 snapper_for_btrfs() {
+    dialog --title "SARS Installation" --infobox "\nInstalling and configuring snapper..." 5 30
     if [ -d /.snapshots ]; then
         pacman_install snapper
         umount /.snapshots
