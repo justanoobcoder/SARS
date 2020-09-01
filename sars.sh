@@ -215,9 +215,27 @@ ch_shell_zsh() {
     rm /home/$username/.bash*
 }
 
+snapper_for_btrfs() {
+    if [ -d /.snapshots ]; then
+        pacman_install snapper
+        umount /.snapshots
+        rm -rf /.snapshots
+        snapper -c root create-config /
+        sed -i "s/ALLOW_USERS=\"\"/ALLOW_USERS=\"$username\"/g" /etc/snapper/configs/root
+        chmod a+rx /.snapshots
+        systemctl enable --now snapper-timeline.timer
+        systemctl enable --now snapper-cleanup.timer
+        sudo -u "$username" snapper -c root create -c timeline -d AfterInstallSARS
+    fi
+}
+
 custom_grub() {
     dialog --title "SARS Installation" --infobox "\nCustomizing grub..." 5 30
     sed -i "s/#GRUB_THEME.*/GRUB_THEME=\/home\/$username\/.local\/share\/sars\/grub\/themes\/Tela\/theme.txt/g" /etc/default/grub
+    if [ -d /.snapshots ]; then
+        pacman_install grub-btrfs
+        systemctl enable --now grub-btrfs.path
+    fi
     grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
 }
 
@@ -308,6 +326,9 @@ Defaults editor=/usr/bin/nvim"
     # Time
     timedatectl set-ntp true
     timedatectl set-local-rtc 1 --adjust-system-clock
+
+    # Snapper
+    snapper_for_btrfs || error "Can't install or configure snapper."
 
     # Customize grub
     custom_grub || error "Can't customize grub."
