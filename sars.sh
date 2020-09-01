@@ -226,7 +226,6 @@ snapper_for_btrfs() {
         chmod a+rx /.snapshots
         systemctl enable --now snapper-timeline.timer
         systemctl enable --now snapper-cleanup.timer
-        sudo -u "$username" snapper -c root create -c timeline -d AfterInstallSARS
     fi
 }
 
