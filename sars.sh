@@ -228,8 +228,8 @@ snapper_for_btrfs() {
         snapper -c root create-config /
         sed -i "s/ALLOW_USERS=\"\"/ALLOW_USERS=\"$username\"/g" /etc/snapper/configs/root
         chmod a+rx /.snapshots
-        systemctl enable --now snapper-timeline.timer > /dev/null
-        systemctl enable --now snapper-cleanup.timer > /dev/null
+        systemctl enable --now snapper-timeline.timer > /dev/null 2>&1
+        systemctl enable --now snapper-cleanup.timer > /dev/null 2>&1
     fi
 }
 
@@ -238,9 +238,9 @@ custom_grub() {
     sed -i "s/#GRUB_THEME.*/GRUB_THEME=\/home\/$username\/.local\/share\/sars\/grub\/themes\/Tela\/theme.txt/g" /etc/default/grub
     if cat /etc/fstab | grep btrfs >/dev/null; then
         pacman_install grub-btrfs
-        systemctl enable --now grub-btrfs.path > /dev/null
+        systemctl enable --now grub-btrfs.path > /dev/null 2>&1
     fi
-    grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
+    grub-mkconfig -o /boot/grub/grub.cfg > /dev/null 2>&1
 }
 
 touchpad() {
