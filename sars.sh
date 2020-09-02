@@ -26,7 +26,8 @@ greeting() {
 }
 
 get_username_pw() {
-    username=$(dialog --title "SARS Installation" --inputbox "Enter username.\\nIt will create a new user if that user doesn't exist." 10 60 3>&1 1>&2 2>&3 3>&1) || exit
+    [ "$(ls /home | wc -l)" = "1" ] && def_user="$(ls /home)"
+    username=$(dialog --title "SARS Installation" --inputbox "Enter username.\\nIt will create a new user if that user doesn't exist." 10 60 "$def_user" 3>&1 1>&2 2>&3 3>&1) || exit
     while ! echo "$username" | grep "^[a-z_][a-z0-9_-]*$" >/dev/null 2>&1; do
         username=$(dialog --title "SARS Installation" --no-cancel --inputbox "This username is not valid. Give username beginning with a letter, with only lowercase letters, - or _" 10 60 3>&1 1>&2 2>&3 3>&1)
     done
