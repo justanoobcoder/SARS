@@ -216,11 +216,11 @@ ch_shell_zsh() {
 }
 
 snapper_for_btrfs() {
-    dialog --title "SARS Installation" --infobox "\nInstalling and configuring snapper..." 5 30
-    if cat /etc/fstab | grep btrfs >/dev/null; then
+    dialog --title "SARS Installation" --infobox "\nInstalling and configuring snapper..." 5 45
+    if cat /etc/fstab | grep btrfs > /dev/null; then
         pacman_install snapper
         if [ -d /.snapshots ]; then
-            if mount | grep /.snapshots; then
+            if mount | grep /.snapshots > /dev/null; then
                 umount /.snapshots
             fi
             rm -rf /.snapshots
@@ -228,8 +228,8 @@ snapper_for_btrfs() {
         snapper -c root create-config /
         sed -i "s/ALLOW_USERS=\"\"/ALLOW_USERS=\"$username\"/g" /etc/snapper/configs/root
         chmod a+rx /.snapshots
-        systemctl enable --now snapper-timeline.timer
-        systemctl enable --now snapper-cleanup.timer
+        systemctl enable --now snapper-timeline.timer > /dev/null
+        systemctl enable --now snapper-cleanup.timer > /dev/null
     fi
 }
 
@@ -238,7 +238,7 @@ custom_grub() {
     sed -i "s/#GRUB_THEME.*/GRUB_THEME=\/home\/$username\/.local\/share\/sars\/grub\/themes\/Tela\/theme.txt/g" /etc/default/grub
     if cat /etc/fstab | grep btrfs >/dev/null; then
         pacman_install grub-btrfs
-        systemctl enable --now grub-btrfs.path
+        systemctl enable --now grub-btrfs.path > /dev/null
     fi
     grub-mkconfig -o /boot/grub/grub.cfg >/dev/null 2>&1
 }
