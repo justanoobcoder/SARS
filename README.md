@@ -24,7 +24,6 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M@     | fzf                                                 | is command-line fuzzy finder.                                                                                                                    |
 | M@     | networkmanager                                      | is a program for providing detection and configuration for systems to automatically connect to networks.                                         |
 | M@     | network-manager-applet                              | is an applet for managing network connections.                                                                                                   |
-| M@     | picom                                               | is for transparency and removing screen-tearing.                                                                                                 |
 | M      | highlight                                           | is a fast and flexible source code highlighter (CLI version).                                                                                    |
 | M@     | xorg-xprop                                          | is a tool for detecting window properties.                                                                                                       |
 | M      | dosfstools                                          | allows your computer to access dos-like filesystems.                                                                                             |
@@ -84,6 +83,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M      | adobe-source-han-sans-tw-fonts                      | is Traditional Chinese OpenType/CFF Sans font.                                                                                                   |
 | M      | adobe-source-han-serif-cn-fonts                     | is Simplified Chinese OpenType/CFF Serif font.                                                                                                   |
 | M      | adobe-source-han-serif-tw-fonts                     | is Traditional Chinese OpenType/CFF Serif font.                                                                                                  |
+| A@     | picom-rounded-corners                               | is for transparency and removing screen-tearing.                                                                                                 |
 | A      | ibus-bamboo                                         | is a Vietnamese IME for ibus.                                                                                                                    |
 | A      | lf                                                  | is a terminal file manager inspired by ranger written in Go.                                                                                     |
 | A@     | light-git                                           | is a program that can easily change brightness on backlight-controllers.                                                                         |
