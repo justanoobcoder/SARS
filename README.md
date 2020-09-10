@@ -82,6 +82,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M      | adobe-source-han-sans-tw-fonts                      | is Traditional Chinese OpenType/CFF Sans font.                                                                                                   |
 | M      | adobe-source-han-serif-cn-fonts                     | is Simplified Chinese OpenType/CFF Serif font.                                                                                                   |
 | M      | adobe-source-han-serif-tw-fonts                     | is Traditional Chinese OpenType/CFF Serif font.                                                                                                  |
+| A@     | srfetch                                             | is a modified neofetch script for SARS.                                                                                                          |
 | A@     | picom-rounded-corners                               | is for transparency and removing screen-tearing.                                                                                                 |
 | A@     | light-git                                           | is a program that can easily change brightness on backlight-controllers.                                                                         |
 | A@     | ttf-ms-fonts                                        | is core TTF Fonts from Microsoft                                                                                                                 |
@@ -92,4 +93,3 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | Z@     | https://gitlab.com/justanoobcoder/st-syaoran        | is a patched st (suckless/simple terminal) build.                                                                                                |
 | Z@     | https://gitlab.com/justanoobcoder/dwmblocks-syaoran | is dwm clickable status bar.                                                                                                                     |
 | Z@     | https://gitlab.com/justanoobcoder/dmenu-syaoran     | is a fast and lightweight dynamic menu for X.                                                                                                    |
-| Z@     | https://gitlab.com/justanoobcoder/srfetch           | is a modified neofetch script.                                                                                                                   |
