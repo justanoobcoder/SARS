@@ -92,5 +92,5 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | A      | ibus-bamboo                                         | is a Vietnamese IME for ibus.                                                                                                                    |
 | Z@     | https://gitlab.com/justanoobcoder/dwm-syaoran       | is a patched dwm (dynamic window manager) build.                                                                                                 |
 | Z@     | https://gitlab.com/justanoobcoder/st-syaoran        | is a patched st (suckless/simple terminal) build.                                                                                                |
-| Z@     | https://gitlab.com/justanoobcoder/dwmblocks-syaoran | is dwm clickable status bar.                                                                                                                     |
-| Z@     | https://gitlab.com/justanoobcoder/dmenu-syaoran     | is a fast and lightweight dynamic menu for X.                                                                                                    |
+| Z@     | https://gitlab.com/justanoobcoder/dwmblocks-syaoran | is dwm clickable status bar like i3blocks.                                                                                                       |
+| Z@     | https://gitlab.com/justanoobcoder/dmenu-syaoran     | is a dynamic menu for X, originally designed for dwm. It manages large numbers of user-defined menu items efficiently.                           |
