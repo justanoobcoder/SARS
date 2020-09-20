@@ -216,6 +216,21 @@ ch_shell_zsh() {
     rm /home/$username/.bash*
 }
 
+bootbackup_hook() {
+    echo '[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = linux*
+
+[Action]
+Depends = rsync
+Description = Backing up /boot...
+When = PreTransaction
+Exec = /usr/bin/rsync -a --delete /boot /.bootbackup' > /usr/share/libalpm/hooks/50_bootbackup.hook
+}
+
 snapper_for_btrfs() {
     dialog --title "SARS Installation" --infobox "\nInstalling and configuring snapper..." 5 45
     if cat /etc/fstab | grep btrfs > /dev/null; then
@@ -231,6 +246,7 @@ snapper_for_btrfs() {
         chmod a+rx /.snapshots
         systemctl enable --now snapper-timeline.timer > /dev/null 2>&1
         systemctl enable --now snapper-cleanup.timer > /dev/null 2>&1
+        bootbackup_hook
     fi
 }
 
