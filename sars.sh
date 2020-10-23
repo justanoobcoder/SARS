@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# SARS - Syaoran's Arch Ricing Script
+
+# Author and maintainer: 	Nguyễn Hồng Hiệp (Syaoran)
+# 							https://facebook.com/syaorancode
+# 							https://github.com/justanoobcoder	
+# 							https://gitlab.com/justanoobcoder	
+
+# SARS source code: 		https://github.com/justanoobcoder/SARS
+#                   		https://gitlab.com/justanoobcoder/SARS
+
 ### CHECK ROOT PERMISSION ###
 
 [ $EUID -ne 0 ] && echo -e "Permission denied!\nRun this script as root" && exit

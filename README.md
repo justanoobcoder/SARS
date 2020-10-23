@@ -89,7 +89,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | A@     | ttf-ms-fonts                                        | is core TTF Fonts from Microsoft                                                                                                                 |
 | A      | lf                                                  | is a terminal file manager inspired by ranger written in Go.                                                                                     |
 | A      | screenkey-git                                       | is a screencast tool to display your keys on the screen.                                                                                         |
-| A      | ibus-bamboo                                         | is a Vietnamese IME for ibus.                                                                                                                    |
+| A      | bamboo-ibus-git                                     | is a Vietnamese IME for ibus.                                                                                                                    |
 | Z@     | https://gitlab.com/justanoobcoder/dwm-syaoran       | is a patched dwm (dynamic window manager) build.                                                                                                 |
 | Z@     | https://gitlab.com/justanoobcoder/st-syaoran        | is a patched st (suckless/simple terminal) build.                                                                                                |
 | Z@     | https://gitlab.com/justanoobcoder/dwmblocks-syaoran | is dwm clickable status bar like i3blocks.                                                                                                       |
