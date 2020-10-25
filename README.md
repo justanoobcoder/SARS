@@ -82,6 +82,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M      | adobe-source-han-sans-tw-fonts                      | is Traditional Chinese OpenType/CFF Sans font.                                                                                                   |
 | M      | adobe-source-han-serif-cn-fonts                     | is Simplified Chinese OpenType/CFF Serif font.                                                                                                   |
 | M      | adobe-source-han-serif-tw-fonts                     | is Traditional Chinese OpenType/CFF Serif font.                                                                                                  |
+| A@     | microsoft-edge-dev-bin                              | is Microsoft Edge browser.                                                                                                                       |
 | A@     | notify-osd-git                                      | is a patched notify-osd.                                                                                                                         |
 | A@     | srfetch                                             | is a modified neofetch script for SARS.                                                                                                          |
 | A@     | picom-rounded-corners                               | is for transparency and removing screen-tearing.                                                                                                 |
