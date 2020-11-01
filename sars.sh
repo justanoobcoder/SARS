@@ -282,7 +282,7 @@ EndSection' > /etc/X11/xorg.conf.d/30-touchpad.conf
 
 createdirs() {
     cd "/home/$username"
-    sudo -u "$username" mkdir -p .config/gtk-2.0 user/{downloads,documents,audio/music,videos/screencast,pictures/screenshots}
+    sudo -u "$username" mkdir -p .config/gtk-2.0 user/{desktop,public,templates,downloads,documents,audio/music,videos/screencast,pictures/screenshots}
 }
 
 last_message(){
