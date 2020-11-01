@@ -55,6 +55,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M@     | ttf-liberation                                      | is a font.                                                                                                                                       |
 | M@     | ttf-font-awesome                                    | is for awesome icons.                                                                                                                            |
 | M@     | noto-fonts                                          | is google noto font.                                                                                                                             |
+| M@     | xdg-user-dirs                                       | is a tool to help manage "well known" user directories like the desktop folder and the music folder.                                             |
 | M      | arandr                                              | is a UI for screen adjustment.                                                                                                                   |
 | M      | highlight                                           | is a fast and flexible source code highlighter (CLI version).                                                                                    |
 | M      | dosfstools                                          | allows your computer to access dos-like filesystems.                                                                                             |
