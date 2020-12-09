@@ -86,7 +86,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | A@     | microsoft-edge-dev-bin                              | is Microsoft Edge browser.                                                                                                                       |
 | A@     | notify-osd-git                                      | is a patched notify-osd.                                                                                                                         |
 | A@     | srfetch                                             | is a modified neofetch script for SARS.                                                                                                          |
-| A@     | picom-rounded-corners                               | is for transparency and removing screen-tearing.                                                                                                 |
+| A@     | picom-jonaburg-git                                  | is for transparency and removing screen-tearing.                                                                                                 |
 | A@     | light-git                                           | is a program that can easily change brightness on backlight-controllers.                                                                         |
 | A@     | ttf-ms-fonts                                        | is core TTF Fonts from Microsoft.                                                                                                                |
 | A@     | starship                                            | is a minimal, blazing-fast, and infinitely customizable prompt for any shell.                                                                    |
