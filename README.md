@@ -51,6 +51,7 @@ Note: packages from github or gitlab must have `Makefile` to use `make`.
 | M@     | zsh                                                 | is a powerful shell that operates as both an interactive shell and as a scripting language interpreter.                                          |
 | M@     | zsh-completions                                     | for additional completion definitions.                                                                                                           |
 | M@     | zsh-syntax-highlighting                             | provides syntax highlighting in the shell.                                                                                                       |
+| M@     | zsh-autosuggestions                                 | provides Fish-like autosuggestions for zsh.                                                                                                      |
 | M@     | ibus                                                | is an input method framework, a system for entering non-Latin characters.                                                                        |
 | M@     | ttf-liberation                                      | is a font.                                                                                                                                       |
 | M@     | ttf-font-awesome                                    | is for awesome icons.                                                                                                                            |
